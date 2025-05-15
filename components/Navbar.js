@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
@@ -39,6 +39,123 @@ const NavLinks = styled.div`
     display: flex;
     gap: 2rem;
   }
+`;
+
+const NavItem = styled.div`
+  position: relative;
+`;
+
+const ServicesDropdownWrapper = styled.div`
+  position: relative;
+`;
+
+const ServicesButton = styled.div`
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  color: ${props => props.scrolled ? 'var(--dark)' : 'white'};
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: var(--primary);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+  }
+  
+  &:hover::after {
+    width: 100%;
+  }
+`;
+
+const DropdownIcon = styled.span`
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+  transform: ${props => props.open ? 'rotate(180deg)' : 'rotate(0)'};
+`;
+
+const ServicesDropdown = styled(motion.div)`
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: -36px;
+  transform: none;
+  width: 760px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 12%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 16px;
+    height: 16px;
+    background: white;
+  }
+`;
+
+const DesktopServiceCard = styled.a`
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  
+  &:hover {
+    background-color: rgba(37, 99, 235, 0.05);
+  }
+`;
+
+const DesktopServiceIcon = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #4A90E2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.125rem;
+  color: white;
+  margin-right: 1rem;
+  flex-shrink: 0;
+`;
+
+const DesktopServiceContent = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const DesktopServiceTitle = styled.h3`
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin: 0 0 0.25rem 0;
+`;
+
+const DesktopServiceDescription = styled.p`
+  font-size: 0.8125rem;
+  color: var(--gray);
+  margin: 0;
+  line-height: 1.4;
 `;
 
 const NavLink = styled(Link)`
@@ -250,6 +367,8 @@ const ServiceTitle = styled.h3`
 const Navbar = ({ scrolled }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesExpanded, setServicesExpanded] = useState(false);
+  const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -261,67 +380,97 @@ const Navbar = ({ scrolled }) => {
   const toggleServicesExpanded = () => {
     setServicesExpanded(!servicesExpanded);
   };
+
+  const toggleDesktopDropdown = () => {
+    setDesktopDropdownOpen(!desktopDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDesktopDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   
   const services = [
     {
       icon: "📱",
       title: "AI Powered Software",
-      link: "ai-software"
+      description: "Smart applications that evolve with your business using artificial intelligence.",
+      link: "/services/ai-powered-software"
     },
     {
       icon: "🖥️",
       title: "Websites & Web Platforms",
-      link: "web-platforms"
+      description: "Fast, secure, and scalable digital experiences for your business.",
+      link: "/services/web-development"
     },
     {
       icon: "📱",
       title: "Mobile Apps",
-      link: "mobile-apps"
+      description: "Native and cross-platform apps for iOS and Android with exceptional performance.",
+      link: "/services/mobile-app-development"
     },
     {
       icon: "📊",
       title: "Data Analytics",
-      link: "data-analytics"
+      description: "Turn raw data into actionable insights with custom analytics solutions.",
+      link: "/services/data-analytics"
     },
     {
       icon: "📈",
       title: "Business Intelligence",
-      link: "business-intelligence"
+      description: "Real-time dashboards and reports integrated with your business systems.",
+      link: "/services/business-intelligence"
     },
     {
       icon: "🤖",
       title: "AI & Machine Learning",
-      link: "ai-ml-integration"
+      description: "Enhance systems with AI capabilities, from NLP to computer vision.",
+      link: "/services/ai-ml-integration"
     },
     {
       icon: "💾",
       title: "Data Management",
-      link: "data-management"
+      description: "Ensure data quality, security, and accessibility across your organization.",
+      link: "/services/data-management"
     },
     {
       icon: "🌐",
       title: "Webhosting",
-      link: "webhosting"
+      description: "Reliable hosting solutions tailored to your application's requirements.",
+      link: "/services/webhosting"
     },
     {
       icon: "⚙️",
       title: "Process Automation",
-      link: "process-automation"
+      description: "Streamline operations by automating repetitive tasks and workflows.",
+      link: "/services/process-automation"
     },
     {
       icon: "🎨",
       title: "UX/UI Design",
-      link: "ux-ui-design"
+      description: "Create intuitive, accessible experiences across all digital touchpoints.",
+      link: "/services/ux-ui-design"
     },
     {
       icon: "🎭",
       title: "Branding & Visual Identity",
-      link: "branding"
+      description: "Build a strong, cohesive visual identity that resonates with your audience.",
+      link: "/services/branding"
     },
     {
       icon: "📈",
       title: "Digital Growth & Performance",
-      link: "digital-growth"
+      description: "Optimize digital presence and maximize ROI across all online channels.",
+      link: "/services/digital-growth"
     }
   ];
   
@@ -333,16 +482,48 @@ const Navbar = ({ scrolled }) => {
         </NextLink>
         
         <NavLinks>
-          <NavLink 
-            to="services" 
-            smooth={true} 
-            duration={500} 
-            spy={true} 
-            activeClass="active"
-            scrolled={scrolled}
-          >
-            Our Services
-          </NavLink>
+          <NavItem ref={dropdownRef}>
+            <ServicesDropdownWrapper 
+              onMouseEnter={() => setDesktopDropdownOpen(true)}
+              onMouseLeave={() => setDesktopDropdownOpen(false)}
+            >
+              <ServicesButton 
+                scrolled={scrolled} 
+                onClick={toggleDesktopDropdown}
+              >
+                Our Services
+                <DropdownIcon open={desktopDropdownOpen}>▼</DropdownIcon>
+              </ServicesButton>
+              
+              <AnimatePresence>
+                {desktopDropdownOpen && (
+                  <ServicesDropdown
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {services.map((service, index) => (
+                      <NextLink 
+                        href={service.link} 
+                        key={index}
+                        passHref
+                      >
+                        <DesktopServiceCard>
+                          <DesktopServiceIcon>{service.icon}</DesktopServiceIcon>
+                          <DesktopServiceContent>
+                            <DesktopServiceTitle>{service.title}</DesktopServiceTitle>
+                            <DesktopServiceDescription>{service.description}</DesktopServiceDescription>
+                          </DesktopServiceContent>
+                        </DesktopServiceCard>
+                      </NextLink>
+                    ))}
+                  </ServicesDropdown>
+                )}
+              </AnimatePresence>
+            </ServicesDropdownWrapper>
+          </NavItem>
+
           <NavLink 
             to="team" 
             smooth={true} 
@@ -422,16 +603,24 @@ const Navbar = ({ scrolled }) => {
                       transition={{ duration: 0.3 }}
                     >
                       {services.map((service, index) => (
-                        <ServiceCard 
+                        <NextLink 
+                          href={service.link} 
                           key={index}
-                          to={service.link}
-                          smooth={true}
-                          duration={500}
-                          onClick={() => setMobileMenuOpen(false)}
+                          passHref
                         >
-                          <ServiceIcon>{service.icon}</ServiceIcon>
-                          <ServiceTitle>{service.title}</ServiceTitle>
-                        </ServiceCard>
+                          <a style={{ textDecoration: 'none' }}>
+                            <div style={{ 
+                              display: 'flex',
+                              alignItems: 'center',
+                              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                              padding: '0.5rem 0.75rem',
+                              borderRadius: '6px',
+                            }}>
+                              <ServiceIcon>{service.icon}</ServiceIcon>
+                              <ServiceTitle>{service.title}</ServiceTitle>
+                            </div>
+                          </a>
+                        </NextLink>
                       ))}
                     </ServicesGrid>
                   )}
