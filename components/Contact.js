@@ -300,37 +300,34 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormState({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
       });
-    }, 1500);
-    
-    // In a real application, you would submit the form data to a server
-    // const response = await fetch('/api/contact', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(formState),
-    // });
-    // const data = await response.json();
-    // if (data.success) {
-    //   setIsSubmitting(false);
-    //   setIsSubmitted(true);
-    //   setFormState({
-    //     name: '',
-    //     email: '',
-    //     subject: '',
-    //     message: ''
-    //   });
-    // }
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setIsSubmitted(true);
+        setFormState({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        alert('There was an error sending your message. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error sending your message. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   const handleHeroClick = (e) => {
@@ -418,7 +415,7 @@ const Contact = () => {
                 </IconWrapper>
                 <InfoContent>
                   <h3>Email Us</h3>
-                  <p><a href="mailto:info@example.com">info@example.com</a></p>
+                  <p><a href="mailto:aline@lucidcodelabs.com">aline@lucidcodelabs.com</a></p>
                 </InfoContent>
               </InfoItem>
               

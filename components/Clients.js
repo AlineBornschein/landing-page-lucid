@@ -178,16 +178,11 @@ const AuthorRole = styled.p`
 `;
 
 const clients = [
-  { id: 1, name: 'TechCorp' },
   { id: 2, name: 'InnoSystems' },
   { id: 3, name: 'GlobalFin' },
-  { id: 4, name: 'MediaPulse' },
-  { id: 5, name: 'HealthNet' },
   { id: 6, name: 'EduLearn' },
-  { id: 7, name: 'RetailPro' },
   { id: 8, name: 'TravelWise' },
-  { id: 9, name: 'FoodDelight' },
-  { id: 10, name: 'EcoTech' },
+  { id: 11, name: 'Loyalty Club PLC' },
 ];
 
 const testimonial = {

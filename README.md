@@ -67,6 +67,27 @@ yarn dev
 - Service offerings can be modified in the `Services.js` component
 - Team member information can be updated in the `Team.js` component
 
+## Email Configuration
+
+The contact form is set up to send emails to aline@lucidcodelabs.com. To configure the email functionality:
+
+1. Create a `.env.local` file in the root directory with the following variables:
+```
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_SECURE=false
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+EMAIL_FROM=your-email@gmail.com
+```
+
+2. For Gmail, you'll need to use an App Password:
+   - Go to your Google Account settings
+   - Navigate to Security > 2-Step Verification > App passwords
+   - Generate a new app password and use it for EMAIL_PASSWORD
+
+3. For other email providers, adjust the EMAIL_HOST, EMAIL_PORT, and EMAIL_SECURE values accordingly.
+
 ## Deployment
 
 This project can be easily deployed to platforms like Vercel or Netlify:
