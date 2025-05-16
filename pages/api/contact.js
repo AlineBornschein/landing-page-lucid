@@ -12,21 +12,26 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, message: 'Missing required fields' });
   }
 
+  // Create a test account at ethereal.email
+  // This is a safe way to test email functionality without exposing credentials
   try {
-    // Create a transporter using SMTP
+    console.log('Creating test account for email sending...');
+    const testAccount = await nodemailer.createTestAccount();
+
+    // Create a transporter using the test account
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.EMAIL_PORT || '587'),
-      secure: process.env.EMAIL_SECURE === 'true',
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
+        user: testAccount.user,
+        pass: testAccount.pass,
       },
     });
 
     // Email content
     const mailOptions = {
-      from: process.env.EMAIL_FROM || 'website@example.com',
+      from: '"Contact Form" <contact@lucidcodelabs.com>',
       to: 'aline@lucidcodelabs.com',
       replyTo: email,
       subject: `Contact Form: ${subject}`,
@@ -48,11 +53,23 @@ export default async function handler(req, res) {
     };
 
     // Send email
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    
+    console.log('Message sent: %s', info.messageId);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-    return res.status(200).json({ success: true, message: 'Email sent successfully' });
+    // Return the preview URL so you can view the email in a browser
+    return res.status(200).json({ 
+      success: true, 
+      message: 'Email sent successfully',
+      previewUrl: nodemailer.getTestMessageUrl(info)
+    });
   } catch (error) {
     console.error('Error sending email:', error);
-    return res.status(500).json({ success: false, message: 'Error sending email' });
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Error sending email', 
+      error: error.message 
+    });
   }
 } 

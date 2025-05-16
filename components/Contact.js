@@ -288,6 +288,7 @@ const Contact = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState('');
   
   const handleChange = (e) => {
     setFormState({
@@ -313,6 +314,9 @@ const Contact = () => {
       
       if (data.success) {
         setIsSubmitted(true);
+        if (data.previewUrl) {
+          setPreviewUrl(data.previewUrl);
+        }
         setFormState({
           name: '',
           email: '',
@@ -496,7 +500,15 @@ const Contact = () => {
                   animate={{ opacity: 1, height: 'auto' }}
                   transition={{ duration: 0.3 }}
                 >
-                  Thank you for your message! We'll get back to you as soon as possible.
+                  <p>Thank you for your message! We'll get back to you as soon as possible.</p>
+                  {previewUrl && (
+                    <p>
+                      Since this is a development environment, you can{' '}
+                      <a href={previewUrl} target="_blank" rel="noopener noreferrer" style={{color: '#155724', textDecoration: 'underline'}}>
+                        view your message here
+                      </a>
+                    </p>
+                  )}
                 </FormSuccess>
               )}
               
