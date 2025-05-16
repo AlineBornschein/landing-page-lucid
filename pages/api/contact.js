@@ -16,14 +16,14 @@ export default async function handler(req, res) {
     // Log form data for debugging
     console.log('Form submission received:', { name, email, subject });
     
-    // Create a transporter using SMTP
+    // Create a transporter using Zoho SMTP
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',  // Assuming Gmail is being used
-      port: 587,
-      secure: false,  // true for 465, false for other ports
+      host: 'smtp.zoho.com',
+      port: 465,
+      secure: true, // use SSL
       auth: {
         user: 'aline@lucidcodelabs.com',
-        pass: process.env.EMAIL_PASSWORD || 'your-app-password-here',  // Use environment variable
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 
@@ -52,6 +52,7 @@ export default async function handler(req, res) {
 
     try {
       // Send email
+      console.log('Attempting to send email via Zoho...');
       const info = await transporter.sendMail(mailOptions);
       console.log('Message sent: %s', info.messageId);
       
@@ -62,17 +63,13 @@ export default async function handler(req, res) {
     } catch (error) {
       console.error('Error sending mail:', error);
       
-      // Fallback to a mock success response for development
-      if (process.env.NODE_ENV === 'development') {
-        return res.status(200).json({ 
-          success: true, 
-          message: 'Development mode: Email would be sent in production',
-          mockSuccess: true,
-          error: error.message
-        });
-      }
-      
-      throw error; // Re-throw for production environments
+      // Return detailed error for debugging
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error sending email',
+        error: error.message,
+        stack: error.stack
+      });
     }
   } catch (error) {
     console.error('General error in contact API:', error);
