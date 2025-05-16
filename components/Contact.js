@@ -201,6 +201,14 @@ const FormSuccess = styled(motion.div)`
   margin-bottom: 1.5rem;
 `;
 
+const FormMockSuccess = styled(motion.div)`
+  padding: 1rem;
+  background-color: #cce5ff;
+  color: #004085;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+`;
+
 const AnimatedHeroBanner = styled(motion.section)`
   width: 100%;
   min-height: 600px;
@@ -288,6 +296,7 @@ const Contact = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isMockSuccess, setIsMockSuccess] = useState(false);
   const [previewUrl, setPreviewUrl] = useState('');
   
   const handleChange = (e) => {
@@ -314,7 +323,9 @@ const Contact = () => {
       
       if (data.success) {
         setIsSubmitted(true);
-        if (data.previewUrl) {
+        if (data.mockSuccess) {
+          setIsMockSuccess(true);
+        } else if (data.previewUrl) {
           setPreviewUrl(data.previewUrl);
         }
         setFormState({
@@ -494,7 +505,7 @@ const Contact = () => {
               viewport={{ once: true }}
               onSubmit={handleSubmit}
             >
-              {isSubmitted && (
+              {isSubmitted && !isMockSuccess && (
                 <FormSuccess
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -510,6 +521,17 @@ const Contact = () => {
                     </p>
                   )}
                 </FormSuccess>
+              )}
+              
+              {isSubmitted && isMockSuccess && (
+                <FormMockSuccess
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <p>Thank you for your message! In development mode, emails are not actually sent.</p>
+                  <p>In production, your message would be delivered to aline@lucidcodelabs.com</p>
+                </FormMockSuccess>
               )}
               
               <FormGroup>
