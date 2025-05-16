@@ -131,7 +131,7 @@ const Team = () => {
     {
       id: 1,
       name: 'George Beard',
-      position: 'Fullstack Developer & Conversion Rate Expert',
+      position: 'Founder & Fullstack Developer',
       image: '/images/geroge.png'
     },
     {
@@ -198,7 +198,7 @@ const Team = () => {
             </MemberImage>
             <MemberInfo>
               <MemberName>Aline Bornschein</MemberName>
-              <MemberPosition>Data Scientist & Fullstack Developer</MemberPosition>
+              <MemberPosition>Founder & Machine Learning Engineer</MemberPosition>
             </MemberInfo>
           </TeamMemberCard>
 

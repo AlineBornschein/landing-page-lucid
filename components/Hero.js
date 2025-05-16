@@ -34,6 +34,11 @@ const Container = styled.div`
 const Content = styled.div`
   max-width: 650px;
   color: white;
+  padding-top: 6rem;
+
+  @media (max-width: 1024px) {
+    padding-top: 10rem;
+  }
 `;
 
 const Title = styled(motion.h1)`

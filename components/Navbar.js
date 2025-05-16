@@ -3,6 +3,7 @@ import { Link } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import NextLink from 'next/link';
+import Image from 'next/image';
 
 const NavbarContainer = styled.nav`
   position: fixed;
@@ -25,11 +26,10 @@ const NavInner = styled.div`
 `;
 
 const Logo = styled.div`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${props => props.scrolled ? 'var(--primary)' : 'white'};
   z-index: 1001;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `;
 
 const NavLinks = styled.div`
@@ -241,9 +241,8 @@ const MobileMenuHeader = styled.div`
 `;
 
 const MobileMenuLogo = styled.div`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
+  display: flex;
+  align-items: center;
 `;
 
 const CloseButton = styled.button`
@@ -401,7 +400,7 @@ const Navbar = ({ scrolled }) => {
   
   const services = [
     {
-      icon: "📱",
+      icon: "🧠",
       title: "AI Powered Software",
       description: "Smart applications that evolve with your business using artificial intelligence.",
       link: "/services/ai-powered-software"
@@ -478,7 +477,9 @@ const Navbar = ({ scrolled }) => {
     <NavbarContainer scrolled={scrolled}>
       <NavInner>
         <NextLink href="/" passHref>
-          <Logo scrolled={scrolled}>TechNova</Logo>
+          <Logo>
+            <Image src="/images/logo1.png" alt="TechNova Logo" width={150} height={40} priority />
+          </Logo>
         </NextLink>
         
         <NavLinks>
@@ -524,7 +525,7 @@ const Navbar = ({ scrolled }) => {
             </ServicesDropdownWrapper>
           </NavItem>
 
-          <NavLink 
+          {/* <NavLink 
             to="team" 
             smooth={true} 
             duration={500} 
@@ -533,7 +534,7 @@ const Navbar = ({ scrolled }) => {
             scrolled={scrolled}
           >
             Our Team
-          </NavLink>
+          </NavLink> */}
           <NavLink 
             to="vision" 
             smooth={true} 
@@ -544,7 +545,7 @@ const Navbar = ({ scrolled }) => {
           >
             Our Vision
           </NavLink>
-          <NavLink 
+          {/* <NavLink 
             to="clients" 
             smooth={true} 
             duration={500} 
@@ -553,7 +554,7 @@ const Navbar = ({ scrolled }) => {
             scrolled={scrolled}
           >
             Our Clients
-          </NavLink>
+          </NavLink> */}
           <NavLink 
             to="journey" 
             smooth={true} 
@@ -584,7 +585,9 @@ const Navbar = ({ scrolled }) => {
             transition={{ type: 'tween', duration: 0.3 }}
           >
             <MobileMenuHeader>
-              <MobileMenuLogo>TechNova</MobileMenuLogo>
+              <MobileMenuLogo>
+                <Image src="/images/logo1.png" alt="TechNova Logo" width={150} height={40} priority />
+              </MobileMenuLogo>
               <CloseButton onClick={toggleMobileMenu}>✕</CloseButton>
             </MobileMenuHeader>
             
@@ -627,7 +630,7 @@ const Navbar = ({ scrolled }) => {
                 </AnimatePresence>
               </ExpandableNavItem>
               
-              <MobileNavItem>
+              {/* <MobileNavItem>
                 <MobileNavLink 
                   to="team" 
                   smooth={true} 
@@ -636,7 +639,7 @@ const Navbar = ({ scrolled }) => {
                 >
                   Our Team
                 </MobileNavLink>
-              </MobileNavItem>
+              </MobileNavItem> */}
               
               <MobileNavItem>
                 <MobileNavLink 
@@ -649,7 +652,7 @@ const Navbar = ({ scrolled }) => {
                 </MobileNavLink>
               </MobileNavItem>
               
-              <MobileNavItem>
+              {/* <MobileNavItem>
                 <MobileNavLink 
                   to="clients" 
                   smooth={true} 
@@ -658,7 +661,7 @@ const Navbar = ({ scrolled }) => {
                 >
                   Our Clients
                 </MobileNavLink>
-              </MobileNavItem>
+              </MobileNavItem> */}
               
               <MobileNavItem>
                 <MobileNavLink 
