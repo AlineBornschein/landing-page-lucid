@@ -297,7 +297,6 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isMockSuccess, setIsMockSuccess] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState('');
   
   const handleChange = (e) => {
     setFormState({
@@ -325,8 +324,6 @@ const Contact = () => {
         setIsSubmitted(true);
         if (data.mockSuccess) {
           setIsMockSuccess(true);
-        } else if (data.previewUrl) {
-          setPreviewUrl(data.previewUrl);
         }
         setFormState({
           name: '',
@@ -512,14 +509,6 @@ const Contact = () => {
                   transition={{ duration: 0.3 }}
                 >
                   <p>Thank you for your message! We'll get back to you as soon as possible.</p>
-                  {previewUrl && (
-                    <p>
-                      Since this is a development environment, you can{' '}
-                      <a href={previewUrl} target="_blank" rel="noopener noreferrer" style={{color: '#155724', textDecoration: 'underline'}}>
-                        view your message here
-                      </a>
-                    </p>
-                  )}
                 </FormSuccess>
               )}
               
@@ -530,7 +519,7 @@ const Contact = () => {
                   transition={{ duration: 0.3 }}
                 >
                   <p>Thank you for your message! In development mode, emails are not actually sent.</p>
-                  <p>In production, your message would be delivered to aline@lucidcodelabs.com</p>
+                  <p>In production, your message would be delivered to info@lucidcodelabs.com</p>
                 </FormMockSuccess>
               )}
               

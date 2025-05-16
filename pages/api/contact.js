@@ -16,37 +16,21 @@ export default async function handler(req, res) {
     // Log form data for debugging
     console.log('Form submission received:', { name, email, subject });
     
-    // Create a test account at ethereal.email
-    console.log('Creating test account for email sending...');
-    let testAccount;
-    try {
-      testAccount = await nodemailer.createTestAccount();
-      console.log('Test account created:', testAccount.user);
-    } catch (err) {
-      console.error('Error creating test account:', err);
-      // Fallback to a mock success response for development
-      return res.status(200).json({ 
-        success: true, 
-        message: 'Development mode: Email would be sent in production',
-        mockSuccess: true
-      });
-    }
-
-    // Create a transporter using the test account
+    // Create a transporter using SMTP
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
+      host: 'smtp.gmail.com',  // Assuming Gmail is being used
       port: 587,
-      secure: false,
+      secure: false,  // true for 465, false for other ports
       auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
+        user: 'aline@lucidcodelabs.com',
+        pass: process.env.EMAIL_PASSWORD || 'your-app-password-here',  // Use environment variable
       },
     });
 
     // Email content
     const mailOptions = {
-      from: '"Contact Form" <contact@lucidcodelabs.com>',
-      to: 'aline@lucidcodelabs.com',
+      from: '"Contact Form" <aline@lucidcodelabs.com>',
+      to: 'info@lucidcodelabs.com',
       replyTo: email,
       subject: `Contact Form: ${subject}`,
       text: `
@@ -66,26 +50,29 @@ export default async function handler(req, res) {
       `,
     };
 
-    // Send email
     try {
+      // Send email
       const info = await transporter.sendMail(mailOptions);
       console.log('Message sent: %s', info.messageId);
-      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-      // Return the preview URL so you can view the email in a browser
+      
       return res.status(200).json({ 
         success: true, 
-        message: 'Email sent successfully',
-        previewUrl: nodemailer.getTestMessageUrl(info)
+        message: 'Email sent successfully'
       });
     } catch (error) {
       console.error('Error sending mail:', error);
+      
       // Fallback to a mock success response for development
-      return res.status(200).json({ 
-        success: true, 
-        message: 'Development mode: Email would be sent in production',
-        mockSuccess: true
-      });
+      if (process.env.NODE_ENV === 'development') {
+        return res.status(200).json({ 
+          success: true, 
+          message: 'Development mode: Email would be sent in production',
+          mockSuccess: true,
+          error: error.message
+        });
+      }
+      
+      throw error; // Re-throw for production environments
     }
   } catch (error) {
     console.error('General error in contact API:', error);
