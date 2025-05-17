@@ -201,6 +201,14 @@ const FormSuccess = styled(motion.div)`
   margin-bottom: 1.5rem;
 `;
 
+const FormError = styled(motion.div)`
+  padding: 1rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+`;
+
 const FormMockSuccess = styled(motion.div)`
   padding: 1rem;
   background-color: #cce5ff;
@@ -296,7 +304,7 @@ const Contact = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isMockSuccess, setIsMockSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   
   const handleChange = (e) => {
     setFormState({
@@ -308,8 +316,12 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage('');
+    setIsSubmitted(false);
     
     try {
+      console.log('Submitting form data:', formState);
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -319,12 +331,10 @@ const Contact = () => {
       });
       
       const data = await response.json();
+      console.log('Server response:', data);
       
       if (data.success) {
         setIsSubmitted(true);
-        if (data.mockSuccess) {
-          setIsMockSuccess(true);
-        }
         setFormState({
           name: '',
           email: '',
@@ -332,11 +342,12 @@ const Contact = () => {
           message: ''
         });
       } else {
-        alert('There was an error sending your message. Please try again later.');
+        console.error('Server error:', data);
+        setErrorMessage(data.message || 'There was an error sending your message. Please try again later.');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('There was an error sending your message. Please try again later.');
+      console.error('Form submission error:', error);
+      setErrorMessage('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -502,7 +513,7 @@ const Contact = () => {
               viewport={{ once: true }}
               onSubmit={handleSubmit}
             >
-              {isSubmitted && !isMockSuccess && (
+              {isSubmitted && (
                 <FormSuccess
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -512,15 +523,15 @@ const Contact = () => {
                 </FormSuccess>
               )}
               
-              {isSubmitted && isMockSuccess && (
-                <FormMockSuccess
+              {errorMessage && (
+                <FormError
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p>Thank you for your message! In development mode, emails are not actually sent.</p>
-                  <p>In production, your message would be delivered to info@lucidcodelabs.com</p>
-                </FormMockSuccess>
+                  <p>{errorMessage}</p>
+                  <p>Please check your network connection or try again later. If the problem persists, please email us directly at info@lucidcodelabs.com.</p>
+                </FormError>
               )}
               
               <FormGroup>

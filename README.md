@@ -69,24 +69,29 @@ yarn dev
 
 ## Email Configuration
 
-The contact form is set up to send emails to aline@lucidcodelabs.com. To configure the email functionality:
+The contact form is set up to send emails from aline@lucidcodelabs.com to info@lucidcodelabs.com using SendGrid.
 
-1. Create a `.env.local` file in the root directory with the following variables:
-```
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_SECURE=false
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASSWORD=your-app-password
-EMAIL_FROM=your-email@gmail.com
-```
+### SendGrid Setup Instructions
 
-2. For Gmail, you'll need to use an App Password:
-   - Go to your Google Account settings
-   - Navigate to Security > 2-Step Verification > App passwords
-   - Generate a new app password and use it for EMAIL_PASSWORD
+1. Create a free SendGrid account at [https://sendgrid.com/](https://sendgrid.com/)
+2. Verify your sender identity (Single Sender Verification for the free tier)
+   - Add and verify aline@lucidcodelabs.com as a sender
+3. Create an API Key
+   - Navigate to Settings > API Keys > Create API Key
+   - Give it a name like "Website Contact Form"
+   - Select "Restricted Access" and enable "Mail Send" permissions
+   - Copy the generated API key
+4. Create a `.env.local` file in the root directory with:
+   ```
+   SENDGRID_API_KEY=your_sendgrid_api_key_here
+   ```
 
-3. For other email providers, adjust the EMAIL_HOST, EMAIL_PORT, and EMAIL_SECURE values accordingly.
+### Important Notes
+
+- The sender email (aline@lucidcodelabs.com) **must be verified** in your SendGrid account
+- The free tier of SendGrid allows 100 emails per day
+- This approach is much more reliable than using direct SMTP 
+- SendGrid provides tracking, analytics, and better email deliverability
 
 ## Deployment
 
