@@ -301,7 +301,7 @@ const Contact = () => {
                 </IconWrapper>
                 <InfoContent>
                   <h3>Call Us</h3>
-                  <p><a href="tel:+1234567890">(123) 456-7890</a></p>
+                  <p><a href="tel:+4917681417544">+49 176 8141 7544</a></p>
                 </InfoContent>
               </InfoItem>
               
@@ -319,7 +319,7 @@ const Contact = () => {
                 </IconWrapper>
                 <InfoContent>
                   <h3>Email Us</h3>
-                  <p><a href="mailto:aline@lucidcodelabs.com">aline@lucidcodelabs.com</a></p>
+                  <p><a href="mailto:info@lucidcodelabs.com">info@lucidcodelabs.com</a></p>
                 </InfoContent>
               </InfoItem>
               
