@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
-import Head from 'next/head';
+import Script from 'next/script';
 
 const ContactSection = styled.section`
   padding: 5rem 0;
@@ -219,29 +219,10 @@ const Contact = () => {
   
   // Load Tally script when component mounts
   useEffect(() => {
-    // Check if script already exists to avoid duplicates
-    if (!document.querySelector('script[src="https://tally.so/widgets/embed.js"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://tally.so/widgets/embed.js';
-      script.async = true;
-      script.onload = () => {
-        // If Tally is loaded, initialize embeds
-        if (typeof window.Tally !== 'undefined') {
-          window.Tally.loadEmbeds();
-        }
-      };
-      document.body.appendChild(script);
-    } else if (typeof window.Tally !== 'undefined') {
-      // If script already exists but embeds aren't loaded
+    // If Tally is already loaded, initialize embeds
+    if (typeof window !== 'undefined' && typeof window.Tally !== 'undefined') {
       window.Tally.loadEmbeds();
     }
-
-    // Cleanup function
-    return () => {
-      // Optional: remove script when component unmounts
-      // const script = document.querySelector('script[src="https://tally.so/widgets/embed.js"]');
-      // if (script) document.body.removeChild(script);
-    };
   }, []);
   
   const handleHeroClick = (e) => {
@@ -252,9 +233,15 @@ const Contact = () => {
   
   return (
     <>
-      <Head>
-        <script async src="https://tally.so/widgets/embed.js"></script>
-      </Head>
+      <Script 
+        src="https://tally.so/widgets/embed.js" 
+        strategy="afterInteractive"
+        onLoad={() => {
+          if (typeof window.Tally !== 'undefined') {
+            window.Tally.loadEmbeds();
+          }
+        }}
+      />
       <AnimatedHeroBanner
         initial={{ scale: 1 }}
         animate={{ scale: 1.05 }}
@@ -332,43 +319,7 @@ const Contact = () => {
                 </IconWrapper>
                 <InfoContent>
                   <h3>Email Us</h3>
-                  <p><a href="mailto:info@example.com">info@example.com</a></p>
-                </InfoContent>
-              </InfoItem>
-              
-              <InfoItem
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <IconWrapper>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </IconWrapper>
-                <InfoContent>
-                  <h3>Visit Us</h3>
-                  <p>123 Business Ave, Suite 100<br />San Francisco, CA 94107</p>
-                </InfoContent>
-              </InfoItem>
-              
-              <InfoItem
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <IconWrapper>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                </IconWrapper>
-                <InfoContent>
-                  <h3>Business Hours</h3>
-                  <p>Monday - Friday: 9:00 AM - 5:00 PM<br />Weekend: Closed</p>
+                  <p><a href="mailto:aline@lucidcodelabs.com">aline@lucidcodelabs.com</a></p>
                 </InfoContent>
               </InfoItem>
               
