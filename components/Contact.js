@@ -287,6 +287,25 @@ const Contact = () => {
           </SectionHeader>
           
           <ContactGrid>
+            <TallyFormWrapper
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <iframe 
+                data-tally-src="https://tally.so/embed/np9Xr1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                loading="lazy" 
+                width="100%" 
+                height="100%" 
+                frameBorder="0" 
+                marginHeight="0" 
+                marginWidth="0" 
+                title="Contact Form"
+                style={{ minHeight: '500px' }}
+              ></iframe>
+            </TallyFormWrapper>
+            
             <ContactInfo>
               <InfoItem
                 initial={{ opacity: 0, y: 20 }}
@@ -338,25 +357,6 @@ const Contact = () => {
                 </SocialIcon>
               </SocialLinks>
             </ContactInfo>
-            
-            <TallyFormWrapper
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <iframe 
-                data-tally-src="https://tally.so/embed/np9Xr1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                loading="lazy" 
-                width="100%" 
-                height="100%" 
-                frameBorder="0" 
-                marginHeight="0" 
-                marginWidth="0" 
-                title="Contact Form"
-                style={{ minHeight: '500px' }}
-              ></iframe>
-            </TallyFormWrapper>
           </ContactGrid>
         </Container>
       </ContactSection>
