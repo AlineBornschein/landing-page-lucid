@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
+import Head from 'next/head';
 
 const ContactSection = styled.section`
   padding: 5rem 0;
@@ -117,80 +118,14 @@ const SocialIcon = styled.a`
   }
 `;
 
-const ContactForm = styled(motion.form)`
+const TallyFormWrapper = styled(motion.div)`
   background-color: white;
   padding: 2.5rem;
   border-radius: 1rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: 1.5rem;
-`;
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: var(--text-primary);
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
-  
-  &:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
-  }
-`;
-
-const Textarea = styled.textarea`
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  height: 150px;
-  resize: vertical;
-  transition: border-color 0.2s ease;
-  
-  &:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
-  }
-`;
-
-const SubmitButton = styled.button`
-  display: inline-block;
-  background-color: var(--primary);
-  color: white;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
+  height: 100%;
+  min-height: 550px;
+  overflow: hidden;
 `;
 
 const FormSuccess = styled(motion.div)`
@@ -279,59 +214,35 @@ const AnimatedHeroButton = styled(motion.a)`
 `;
 
 const Contact = () => {
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   
-  const handleChange = (e) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value
-    });
-  };
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormState({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-    }, 1500);
-    
-    // In a real application, you would submit the form data to a server
-    // const response = await fetch('/api/contact', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(formState),
-    // });
-    // const data = await response.json();
-    // if (data.success) {
-    //   setIsSubmitting(false);
-    //   setIsSubmitted(true);
-    //   setFormState({
-    //     name: '',
-    //     email: '',
-    //     subject: '',
-    //     message: ''
-    //   });
-    // }
-  };
+  // Load Tally script when component mounts
+  useEffect(() => {
+    // Check if script already exists to avoid duplicates
+    if (!document.querySelector('script[src="https://tally.so/widgets/embed.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://tally.so/widgets/embed.js';
+      script.async = true;
+      script.onload = () => {
+        // If Tally is loaded, initialize embeds
+        if (typeof window.Tally !== 'undefined') {
+          window.Tally.loadEmbeds();
+        }
+      };
+      document.body.appendChild(script);
+    } else if (typeof window.Tally !== 'undefined') {
+      // If script already exists but embeds aren't loaded
+      window.Tally.loadEmbeds();
+    }
+
+    // Cleanup function
+    return () => {
+      // Optional: remove script when component unmounts
+      // const script = document.querySelector('script[src="https://tally.so/widgets/embed.js"]');
+      // if (script) document.body.removeChild(script);
+    };
+  }, []);
   
   const handleHeroClick = (e) => {
     e.preventDefault();
@@ -341,6 +252,9 @@ const Contact = () => {
   
   return (
     <>
+      <Head>
+        <script async src="https://tally.so/widgets/embed.js"></script>
+      </Head>
       <AnimatedHeroBanner
         initial={{ scale: 1 }}
         animate={{ scale: 1.05 }}
@@ -486,74 +400,24 @@ const Contact = () => {
               </SocialLinks>
             </ContactInfo>
             
-            <ContactForm
+            <TallyFormWrapper
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
-              onSubmit={handleSubmit}
             >
-              {isSubmitted && (
-                <FormSuccess
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  transition={{ duration: 0.3 }}
-                >
-                  Thank you for your message! We'll get back to you as soon as possible.
-                </FormSuccess>
-              )}
-              
-              <FormGroup>
-                <Label htmlFor="name">Full Name</Label>
-                <Input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-              
-              <FormGroup>
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-              
-              <FormGroup>
-                <Label htmlFor="subject">Subject</Label>
-                <Input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formState.subject}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-              
-              <FormGroup>
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formState.message}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-              
-              <SubmitButton type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </SubmitButton>
-            </ContactForm>
+              <iframe 
+                data-tally-src="https://tally.so/embed/np9Xr1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                loading="lazy" 
+                width="100%" 
+                height="100%" 
+                frameBorder="0" 
+                marginHeight="0" 
+                marginWidth="0" 
+                title="Contact Form"
+                style={{ minHeight: '500px' }}
+              ></iframe>
+            </TallyFormWrapper>
           </ContactGrid>
         </Container>
       </ContactSection>
