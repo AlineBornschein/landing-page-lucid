@@ -191,7 +191,7 @@ const clients = [
 ];
 
 const testimonial = {
-  content: "Working with TechNova has been an incredible experience. They took our vision for Loyalty Club PLC and brought it to life with a level of expertise, creativity, and attention to detail that exceeded our expectations. Their team developed a robust, user-friendly loyalty platform that not only looks fantastic but also works flawlessly for both our business partners and customers.\n\nThroughout the project, communication was clear, deadlines were met, and they always went the extra mile to ensure everything was exactly how we envisioned. Thanks to TechNova, we now have a powerful loyalty software that is the foundation of our business and allows us to confidently grow and expand. We couldn't be happier with the result and highly recommend them to anyone looking for a top-tier development partner.",
+  content: "Working with Lucid Code Labs has been an incredible experience. They took our vision for Loyalty Club PLC and brought it to life with a level of expertise, creativity, and attention to detail that exceeded our expectations. Their team developed a robust, user-friendly loyalty platform that not only looks fantastic but also works flawlessly for both our business partners and customers.\n\nThroughout the project, communication was clear, deadlines were met, and they always went the extra mile to ensure everything was exactly how we envisioned. Thanks to Lucid Code Labs, we now have a powerful loyalty software that is the foundation of our business and allows us to confidently grow and expand. We couldn't be happier with the result and highly recommend them to anyone looking for a top-tier development partner.",
   author: {
     name: "Tony Lewis",
     role: "CEO, Loyalty Club PLC"

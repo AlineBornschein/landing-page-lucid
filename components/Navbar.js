@@ -478,7 +478,7 @@ const Navbar = ({ scrolled }) => {
       <NavInner>
         <NextLink href="/" passHref>
           <Logo>
-            <Image src="/images/logo1.png" alt="TechNova Logo" width={150} height={40} priority />
+            <Image src="/images/logo1.png" alt="Lucid Code Labs Logo" width={150} height={40} priority />
           </Logo>
         </NextLink>
         
@@ -586,7 +586,7 @@ const Navbar = ({ scrolled }) => {
           >
             <MobileMenuHeader>
               <MobileMenuLogo>
-                <Image src="/images/logo1.png" alt="TechNova Logo" width={150} height={40} priority />
+                <Image src="/images/logo1.png" alt="Lucid Code Labs Logo" width={150} height={40} priority />
               </MobileMenuLogo>
               <CloseButton onClick={toggleMobileMenu}>✕</CloseButton>
             </MobileMenuHeader>

@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <GlobalStyle>
       <Head>
-        <title>TechNova Solutions - Software Development Company</title>
+        <title>Lucid Code Labs Software - Software Development Company</title>
         <meta name="description" content="Professional software development services including AI solutions, web development, mobile apps, and more." />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

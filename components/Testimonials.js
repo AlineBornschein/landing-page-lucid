@@ -92,6 +92,25 @@ const AuthorInfo = styled.div`
   }
 `;
 
+const Testimonial = ({ src, name, title, testimonial }) => (
+  <TestimonialCard
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    viewport={{ once: true }}
+  >
+    <CompanyName>{name}</CompanyName>
+    <TestimonialText>
+      <p>{testimonial}</p>
+    </TestimonialText>
+    <Author>
+      <AuthorInfo>
+        <h4>{title}</h4>
+      </AuthorInfo>
+    </Author>
+  </TestimonialCard>
+);
+
 const Testimonials = () => {
   return (
     <TestimonialsSection id="testimonials">
@@ -101,28 +120,15 @@ const Testimonials = () => {
           <Subtitle>Hear what our clients have to say about working with us</Subtitle>
         </SectionHeader>
         
-        <TestimonialCard
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <CompanyName>Loyalty Club PLC</CompanyName>
-          <TestimonialText>
-            <p>
-              "Working with TechNova Solutions has been an incredible experience. They took our vision for Loyalty Club PLC and brought it to life with a level of expertise, creativity, and attention to detail that exceeded our expectations. Their team developed a robust, user-friendly loyalty platform that not only looks fantastic but also works flawlessly for both our business partners and customers.
-            </p>
-            <p>
-              Throughout the project, communication was clear, deadlines were met, and they always went the extra mile to ensure everything was exactly how we envisioned. Thanks to TechNova Solutions, we now have a powerful loyalty software that is the foundation of our business and allows us to confidently grow and expand. We couldn't be happier with the result and highly recommend them to anyone looking for a top-tier development partner."
-            </p>
-          </TestimonialText>
-          <Author>
-            <AuthorInfo>
-              <h4>Tony Lewis</h4>
-              <p>CEO</p>
-            </AuthorInfo>
-          </Author>
-        </TestimonialCard>
+        <Testimonial 
+          key="1"
+          src="/images/client-profile-pic-1.png"
+          name="Dana Reynolds"
+          title="Chief Marketing Officer, Loyalty Club PLC"
+          testimonial={
+            "Working with Lucid Code Labs Software has been an incredible experience. They took our vision for Loyalty Club PLC and brought it to life with a level of expertise, creativity, and attention to detail that exceeded our expectations. Their collaborative approach, clear communication, and technical excellence throughout the entire development process made them a true partner in our success. The final product was exactly how we envisioned. Thanks to Lucid Code Labs Software, we now have a powerful loyalty software that is the foundation of our business and allows us to confidently grow and expand. We couldn't be happier with the result and highly recommend them!"
+          }
+        />
       </Container>
     </TestimonialsSection>
   );
