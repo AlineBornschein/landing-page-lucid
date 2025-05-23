@@ -153,7 +153,7 @@ const HeroContent = styled.div`
   max-width: 600px;
   position: relative;
   z-index: 2;
-  padding-top: 8rem;
+  padding-top: 10rem;
 `;
 
 const ImageWrapper = styled(motion.div)`
