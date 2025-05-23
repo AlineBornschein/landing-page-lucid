@@ -208,9 +208,6 @@ const Footer = () => {
               <FooterLink>
                 <Link to="journey" smooth={true} duration={500}>Your Journey</Link>
               </FooterLink>
-              <FooterLink>
-                <a href="#">Careers</a>
-              </FooterLink>
             </FooterLinks>
           </FooterColumn>
           
