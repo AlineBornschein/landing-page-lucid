@@ -12,7 +12,8 @@ const NavbarContainer = styled.nav`
   width: 100%;
   z-index: 1000;
   transition: all 0.3s ease;
-  background-color: ${props => props.scrolled ? 'white' : 'transparent'};
+  background-color: ${props => props.scrolled ? 'white' : 'rgba(29, 78, 216, 0.15)'};
+  backdrop-filter: ${props => props.scrolled ? 'none' : 'blur(10px)'};
   box-shadow: ${props => props.scrolled ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
 `;
 
