@@ -34,10 +34,10 @@ const Container = styled.div`
 const Content = styled.div`
   max-width: 650px;
   color: white;
-  padding-top: 9rem;
+  padding-top: 6rem;
 
   @media (max-width: 1024px) {
-    padding-top: 12rem;
+    padding-top: 10rem;
   }
 `;
 
@@ -45,7 +45,6 @@ const Title = styled(motion.h1)`
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  margin-top: 1rem;
   line-height: 1.2;
   
   @media (max-width: 768px) {
