@@ -473,7 +473,7 @@ const AIServicePage = () => {
             <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
               Let's discuss how our AI-powered solutions can address your specific challenges and opportunities. Our experts will work with you to develop a strategic roadmap tailored to your unique business needs.
             </p>
-            <CTAButton href="/contact">Schedule a Strategic Consultation</CTAButton>
+            <CTAButton href="/#contact">Schedule a Strategic Consultation</CTAButton>
           </CenteredContent>
         </Container>
       </CTASection>
