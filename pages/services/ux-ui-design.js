@@ -337,9 +337,18 @@ const UXUIServicePage = () => {
                 Our team works as strategic partners, helping you translate business challenges into design opportunities and user-centered solutions that create competitive advantage in your market.
               </p>
             </ContentText>
-            <ImagePlaceholder>
-              [Strategic Design Thinking Image]
-            </ImagePlaceholder>
+            <div>
+              <img 
+                src="/images/design thinking.png" 
+                alt="Strategic Design Thinking" 
+                style={{ 
+                  borderRadius: '1rem', 
+                  width: '100%', 
+                  height: 'auto', 
+                  objectFit: 'cover' 
+                }} 
+              />
+            </div>
           </TwoColumnGrid>
           
           <CardsGrid>
@@ -538,9 +547,18 @@ const UXUIServicePage = () => {
       <ContentSection style={{ backgroundColor: 'var(--light)' }}>
         <Container>
           <TwoColumnGrid>
-            <ImagePlaceholder>
-              [Design Impact Image]
-            </ImagePlaceholder>
+            <div>
+              <img 
+                src="/images/design.png" 
+                alt="Design Impact on Business Metrics" 
+                style={{ 
+                  borderRadius: '1rem', 
+                  width: '100%', 
+                  height: 'auto', 
+                  objectFit: 'cover' 
+                }} 
+              />
+            </div>
             <ContentText>
               <SectionSubtitle>Business Impact</SectionSubtitle>
               <ContentTitle>The Strategic Value of Exceptional Design</ContentTitle>
