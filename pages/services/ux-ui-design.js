@@ -570,7 +570,7 @@ const UXUIServicePage = () => {
             <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
               Let's discuss how our strategic design approach can help you achieve your business goals. Our team will work with you to understand your specific challenges and create a tailored solution.
             </p>
-            <CTAButton href="/contact">Schedule a Strategic Consultation</CTAButton>
+            <CTAButton href="/#contact">Schedule a Strategic Consultation</CTAButton>
           </CenteredContent>
         </Container>
       </CTASection>
