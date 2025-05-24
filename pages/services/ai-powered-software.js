@@ -353,9 +353,16 @@ const AIServicePage = () => {
       <ContentSection style={{ backgroundColor: 'var(--light)' }}>
         <Container>
           <TwoColumnGrid>
-            <ImagePlaceholder>
-              [AI Implementation Image]
-            </ImagePlaceholder>
+            <ImageContainer>
+              <Image 
+                src="/images/ai_garden.png"
+                alt="AI Implementation"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: 'cover' }}
+                priority
+              />
+            </ImageContainer>
             <ContentText>
               <SectionSubtitle>Our Methodology</SectionSubtitle>
               <ContentTitle>From Vision to Value: How We Deliver</ContentTitle>
