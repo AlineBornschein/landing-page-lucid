@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import NextLink from 'next/link';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const FooterSection = styled.footer`
   background-color: var(--dark);
@@ -138,6 +140,17 @@ const BottomLinks = styled.div`
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const router = useRouter();
+  const isHomePage = router.pathname === '/';
+  
+  // Use this function to conditionally render links
+  const renderLink = (to, label) => {
+    if (isHomePage) {
+      return <ScrollLink to={to} smooth={true} duration={500}>{label}</ScrollLink>;
+    } else {
+      return <NextLink href={`/#${to}`}>{label}</NextLink>;
+    }
+  };
   
   return (
     <FooterSection>
@@ -176,19 +189,19 @@ const Footer = () => {
             <ColumnTitle>Services</ColumnTitle>
             <FooterLinks>
               <FooterLink>
-                <Link to="services" smooth={true} duration={500}>AI Powered Software</Link>
+                {renderLink("services", "AI Powered Software")}
               </FooterLink>
               <FooterLink>
-                <Link to="services" smooth={true} duration={500}>Websites & Web Platforms</Link>
+                {renderLink("services", "Websites & Web Platforms")}
               </FooterLink>
               <FooterLink>
-                <Link to="services" smooth={true} duration={500}>Mobile Apps</Link>
+                {renderLink("services", "Mobile Apps")}
               </FooterLink>
               <FooterLink>
-                <Link to="services" smooth={true} duration={500}>Data Analytics</Link>
+                {renderLink("services", "Data Analytics")}
               </FooterLink>
               <FooterLink>
-                <Link to="services" smooth={true} duration={500}>UI/UX Design</Link>
+                {renderLink("services", "UI/UX Design")}
               </FooterLink>
             </FooterLinks>
           </FooterColumn>
@@ -197,16 +210,16 @@ const Footer = () => {
             <ColumnTitle>Company</ColumnTitle>
             <FooterLinks>
               <FooterLink>
-                <Link to="team" smooth={true} duration={500}>Our Team</Link>
+                {renderLink("team", "Our Team")}
               </FooterLink>
               <FooterLink>
-                <Link to="vision" smooth={true} duration={500}>Our Vision</Link>
+                {renderLink("vision", "Our Vision")}
               </FooterLink>
               <FooterLink>
-                <Link to="clients" smooth={true} duration={500}>Clients</Link>
+                {renderLink("clients", "Clients")}
               </FooterLink>
               <FooterLink>
-                <Link to="journey" smooth={true} duration={500}>Your Journey</Link>
+                {renderLink("journey", "Your Journey")}
               </FooterLink>
             </FooterLinks>
           </FooterColumn>
@@ -215,7 +228,7 @@ const Footer = () => {
             <ColumnTitle>Contact</ColumnTitle>
             <FooterLinks>
               <FooterLink>
-                <Link to="contact" smooth={true} duration={500}>Get In Touch</Link>
+                {renderLink("contact", "Get In Touch")}
               </FooterLink>
               <FooterLink>
                 <a href="tel:+4917681417544">+49 176 8141 7544</a>
