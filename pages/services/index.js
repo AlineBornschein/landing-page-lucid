@@ -389,7 +389,7 @@ export default function ServicesPage() {
   return (
     <PageContainer>
       <Head>
-        <title>Our Services | TechNova Solutions</title>
+        <title>Our Services | Lucid Code Labs Software</title>
         <meta name="description" content="Explore our comprehensive range of digital services designed to help your business innovate, grow, and succeed in the digital world." />
       </Head>
       
