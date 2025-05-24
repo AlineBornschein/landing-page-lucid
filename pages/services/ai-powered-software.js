@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
@@ -135,7 +136,7 @@ const ContentText = styled.div`
   }
 `;
 
-const ImagePlaceholder = styled.div`
+const ImageContainer = styled.div`
   background-color: #e2e8f0;
   border-radius: 1rem;
   height: 100%;
@@ -143,8 +144,8 @@ const ImagePlaceholder = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
-  color: var(--gray);
+  overflow: hidden;
+  position: relative;
 `;
 
 const CardsGrid = styled.div`
@@ -217,6 +218,18 @@ const SectionSubtitle = styled.p`
   margin-bottom: 0.5rem;
 `;
 
+const ImagePlaceholder = styled.div`
+  background-color: #e2e8f0;
+  border-radius: 1rem;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+`;
+
 const AIServicePage = () => {
   const [scrolled, setScrolled] = React.useState(false);
   
@@ -287,9 +300,16 @@ const AIServicePage = () => {
                 Rather than offering one-size-fits-all AI tools, we craft bespoke solutions that align perfectly with your specific objectives and integrate seamlessly with your existing systems and workflows.
               </p>
             </ContentText>
-            <ImagePlaceholder>
-              [AI Strategy Consultation Image]
-            </ImagePlaceholder>
+            <ImageContainer>
+              <Image 
+                src="/images/Neural Network Design.jpg"
+                alt="AI Strategy Consultation - Neural Network Design"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: 'cover' }}
+                priority
+              />
+            </ImageContainer>
           </TwoColumnGrid>
           
           <CardsGrid>
