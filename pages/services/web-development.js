@@ -469,7 +469,7 @@ export default function WebDevelopment() {
             Let's discuss how our web development expertise can help you achieve your business goals 
             and create exceptional digital experiences for your customers.
           </CTAText>
-          <CTAButton href="/contact">Schedule a Strategy Session</CTAButton>
+          <CTAButton href="/#contact">Schedule a Strategy Session</CTAButton>
         </SectionContainer>
       </CTASection>
       
