@@ -384,7 +384,7 @@ const ReactNativeMobileApp = () => {
               </p>
             </ContentText>
             <ImageContainer>
-              <img src="/images/mobile1.png" alt="React Native Mobile Development" />
+              <img src="/images/mobile3.png" alt="React Native Mobile Development" />
             </ImageContainer>
           </TwoColumnGrid>
           
