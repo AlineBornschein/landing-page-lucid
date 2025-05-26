@@ -105,6 +105,14 @@ const ContentTitle = styled.h2`
   color: var(--dark);
 `;
 
+const SectionSubtitle = styled.span`
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+`;
+
 const ContentText = styled.div`
   color: var(--gray);
   line-height: 1.7;
@@ -135,7 +143,7 @@ const ContentText = styled.div`
   }
 `;
 
-const ImagePlaceholder = styled.div`
+const ImageContainer = styled.div`
   background-color: #e2e8f0;
   border-radius: 1rem;
   height: 100%;
@@ -143,8 +151,14 @@ const ImagePlaceholder = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
-  color: var(--gray);
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
 `;
 
 const CardsGrid = styled.div`
@@ -167,6 +181,24 @@ const Card = styled(motion.div)`
   border-radius: 0.75rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   padding: 2rem;
+  border: 1px solid var(--light-gray);
+`;
+
+const CardIcon = styled.div`
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--primary-light);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary-dark);
+  }
 `;
 
 const CardTitle = styled.h3`
@@ -177,6 +209,56 @@ const CardTitle = styled.h3`
 `;
 
 const CardDescription = styled.p`
+  color: var(--gray);
+  line-height: 1.7;
+`;
+
+const ProcessSteps = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const ProcessStep = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const StepNumber = styled.div`
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: 1rem;
+`;
+
+const StepContent = styled.div`
+  flex: 1;
+`;
+
+const StepTitle = styled.h3`
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+`;
+
+const StepDescription = styled.p`
   color: var(--gray);
   line-height: 1.7;
 `;
@@ -200,118 +282,43 @@ const CTAButton = styled.a`
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   text-decoration: none;
+  transition: all 0.2s ease;
   margin-top: 2rem;
-  transition: all 0.3s ease;
   
   &:hover {
     background-color: var(--primary-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
   }
 `;
 
-const SectionSubtitle = styled.p`
-  font-size: 1.25rem;
-  color: var(--primary);
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-`;
-
-// Process Steps Component
-const ProcessSteps = styled.div`
+const TechStack = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
   margin: 3rem 0;
 `;
 
-const ProcessStep = styled.div`
-  display: flex;
-  margin-bottom: 3rem;
+const TechItem = styled.div`
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--light-gray);
+  text-align: center;
   
-  @media (max-width: 640px) {
-    flex-direction: column;
+  h4 {
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: var(--gray);
+    font-size: 0.875rem;
   }
 `;
 
-const StepNumber = styled.div`
-  flex-shrink: 0;
-  width: 3rem;
-  height: 3rem;
-  background-color: var(--primary);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.25rem;
-  margin-right: 1.5rem;
-  
-  @media (max-width: 640px) {
-    margin-bottom: 1rem;
-  }
-`;
-
-const StepContent = styled.div`
-  flex: 1;
-`;
-
-const StepTitle = styled.h3`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: var(--dark);
-`;
-
-const StepDescription = styled.p`
-  color: var(--gray);
-  line-height: 1.7;
-`;
-
-// Tabs Component
-const TabsContainer = styled.div`
-  margin: 3rem 0;
-`;
-
-const TabsNav = styled.div`
-  display: flex;
-  border-bottom: 2px solid var(--light-gray);
-  margin-bottom: 2rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  
-  @media (max-width: 768px) {
-    padding-bottom: 0.5rem;
-  }
-`;
-
-const TabButton = styled.button`
-  background: none;
-  border: none;
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
-  font-weight: ${props => props.active ? '600' : '400'};
-  color: ${props => props.active ? 'var(--primary)' : 'var(--gray)'};
-  border-bottom: 2px solid ${props => props.active ? 'var(--primary)' : 'transparent'};
-  margin-bottom: -2px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  
-  &:hover {
-    color: ${props => props.active ? 'var(--primary)' : 'var(--dark)'};
-  }
-`;
-
-const TabContent = styled.div`
-  display: ${props => props.active ? 'block' : 'none'};
-`;
-
-const MobileAppServicePage = () => {
+const ReactNativeMobileApp = () => {
   const [scrolled, setScrolled] = React.useState(false);
-  const [activeTab, setActiveTab] = React.useState('ios');
   
   React.useEffect(() => {
     const handleScroll = () => {
@@ -329,8 +336,8 @@ const MobileAppServicePage = () => {
   return (
     <PageContainer>
       <Head>
-        <title>Mobile App Development | Lucid Code Labs Software</title>
-        <meta name="description" content="Strategic mobile app development services that transform ideas into successful digital products. We build custom iOS and Android apps that create business value." />
+        <title>React Native Mobile App Development | Lucid Code Labs Software</title>
+        <meta name="description" content="Expert React Native mobile app development services. Build cross-platform iOS and Android apps with a single codebase. Fast, efficient, and cost-effective mobile solutions." />
       </Head>
       
       <Navbar scrolled={scrolled} />
@@ -338,11 +345,11 @@ const MobileAppServicePage = () => {
       <HeroSection>
         <Container>
           <Breadcrumbs>
-            <Link href="/" legacyBehavior><a>Home</a></Link>
+            <Link href="/">Home</Link>
             <span>/</span>
-            <Link href="/services" legacyBehavior><a>Services</a></Link>
+            <Link href="/#services">Services</Link>
             <span>/</span>
-            <Link href="/services/mobile-app-development" legacyBehavior><a>Mobile App Development</a></Link>
+            <span>React Native Mobile Apps</span>
           </Breadcrumbs>
           
           <HeroContent>
@@ -352,9 +359,9 @@ const MobileAppServicePage = () => {
                 <line x1="12" y1="18" x2="12.01" y2="18"></line>
               </svg>
             </ServiceIcon>
-            <SectionTitle>Strategic Mobile Solutions for Business Growth</SectionTitle>
+            <SectionTitle>React Native Mobile App Development</SectionTitle>
             <SectionDescription>
-              We transform business challenges into powerful mobile experiences that engage users, streamline operations, and create new revenue opportunities through user-centered design and robust engineering.
+              Build powerful cross-platform mobile applications with React Native. One codebase, two platforms - delivering native performance and user experience for both iOS and Android while reducing development time and costs.
             </SectionDescription>
           </HeroContent>
         </Container>
@@ -364,24 +371,21 @@ const MobileAppServicePage = () => {
         <Container>
           <TwoColumnGrid>
             <ContentText>
-              <SectionSubtitle>Our Approach</SectionSubtitle>
-              <ContentTitle>Mobile Development as a Strategic Business Initiative</ContentTitle>
+              <SectionSubtitle>Our Expertise</SectionSubtitle>
+              <ContentTitle>Why React Native for Your Mobile App?</ContentTitle>
               <p>
-                In today's digital landscape, mobile apps are not just technical products—they're strategic business assets that can transform customer relationships, operational efficiency, and market positioning. At Lucid Code Labs, we approach mobile app development through this strategic lens.
+                React Native is our framework of choice for mobile app development because it offers the perfect balance of performance, development efficiency, and cost-effectiveness. With React Native, we can build truly native mobile applications using a single codebase that runs on both iOS and Android.
               </p>
               <p>
-                Our process begins with understanding your business objectives, user needs, and market opportunities. We focus on identifying the unique value your mobile application can deliver, ensuring that every feature contributes to your core business goals.
+                This approach means faster time-to-market, reduced development costs, and easier maintenance - all while delivering the native performance and user experience your users expect. React Native is trusted by companies like Facebook, Instagram, Airbnb, and Tesla for their mobile applications.
               </p>
               <p>
-                This business-first approach means that we're not just building apps with the latest technology—we're creating digital products designed to deliver measurable business impact, whether that's increased customer engagement, operational efficiency, or new revenue streams.
-              </p>
-              <p>
-                By combining strategic thinking with technical excellence, we deliver mobile solutions that stand out in crowded marketplaces and create lasting value for your business and users.
+                Our team specializes exclusively in React Native development, ensuring we leverage the framework's full potential to create high-quality, scalable mobile applications that meet your business objectives.
               </p>
             </ContentText>
-            <ImagePlaceholder>
-              [Strategic Mobile Development Image]
-            </ImagePlaceholder>
+            <ImageContainer>
+              <img src="/images/mobile1.png" alt="React Native Mobile Development" />
+            </ImageContainer>
           </TwoColumnGrid>
           
           <CardsGrid>
@@ -391,9 +395,16 @@ const MobileAppServicePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <CardTitle>Business-Aligned Development</CardTitle>
+              <CardIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5"></path>
+                  <path d="M2 12l10 5 10-5"></path>
+                </svg>
+              </CardIcon>
+              <CardTitle>Cross-Platform Efficiency</CardTitle>
               <CardDescription>
-                We align every aspect of mobile app development with your specific business objectives, ensuring that the final product drives measurable results for your organization.
+                Write once, run everywhere. React Native allows us to develop for both iOS and Android simultaneously, reducing development time by up to 50% while maintaining native performance.
               </CardDescription>
             </Card>
             <Card
@@ -402,9 +413,17 @@ const MobileAppServicePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <CardTitle>User-Centered Design</CardTitle>
+              <CardIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+              </CardIcon>
+              <CardTitle>Native Performance</CardTitle>
               <CardDescription>
-                Our design process focuses on creating intuitive, engaging user experiences that solve real problems for your target audience and encourage continued engagement.
+                React Native apps compile to native code, providing the same performance and user experience as apps built with native iOS and Android development tools.
               </CardDescription>
             </Card>
             <Card
@@ -413,9 +432,16 @@ const MobileAppServicePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <CardTitle>Engineering Excellence</CardTitle>
+              <CardIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5"></path>
+                  <path d="M2 12l10 5 10-5"></path>
+                </svg>
+              </CardIcon>
+              <CardTitle>Cost-Effective Development</CardTitle>
               <CardDescription>
-                We build robust, high-performance applications using industry best practices that ensure reliability, scalability, and maintainability over time.
+                Significantly reduce development and maintenance costs with a single codebase that serves both platforms, while maintaining the ability to add platform-specific features when needed.
               </CardDescription>
             </Card>
           </CardsGrid>
@@ -425,10 +451,57 @@ const MobileAppServicePage = () => {
       <ContentSection style={{ backgroundColor: 'var(--light)' }}>
         <Container>
           <CenteredContent>
-            <SectionSubtitle>Our Process</SectionSubtitle>
-            <ContentTitle>A Proven Approach to Mobile App Development</ContentTitle>
+            <SectionSubtitle>Our Technology Stack</SectionSubtitle>
+            <ContentTitle>React Native Development Ecosystem</ContentTitle>
             <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
-              Our structured development methodology ensures that we deliver high-quality mobile applications that meet your business objectives and user needs.
+              We use the latest React Native technologies and tools to build robust, scalable mobile applications.
+            </p>
+          </CenteredContent>
+          
+          <TechStack>
+            <TechItem>
+              <h4>React Native</h4>
+              <p>Core framework for cross-platform mobile development</p>
+            </TechItem>
+            <TechItem>
+              <h4>Expo</h4>
+              <p>Development platform for rapid prototyping and deployment</p>
+            </TechItem>
+            <TechItem>
+              <h4>TypeScript</h4>
+              <p>Type-safe development for better code quality and maintainability</p>
+            </TechItem>
+            <TechItem>
+              <h4>Redux/Zustand</h4>
+              <p>State management for complex application logic</p>
+            </TechItem>
+            <TechItem>
+              <h4>React Navigation</h4>
+              <p>Routing and navigation for seamless user experiences</p>
+            </TechItem>
+            <TechItem>
+              <h4>Firebase</h4>
+              <p>Backend services, authentication, and real-time databases</p>
+            </TechItem>
+            <TechItem>
+              <h4>Native Modules</h4>
+              <p>Custom native functionality when platform-specific features are needed</p>
+            </TechItem>
+            <TechItem>
+              <h4>App Store Deployment</h4>
+              <p>Complete deployment and publishing to both iOS App Store and Google Play</p>
+            </TechItem>
+          </TechStack>
+        </Container>
+      </ContentSection>
+      
+      <ContentSection>
+        <Container>
+          <CenteredContent>
+            <SectionSubtitle>Our Process</SectionSubtitle>
+            <ContentTitle>React Native Development Process</ContentTitle>
+            <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
+              Our streamlined development process ensures efficient delivery of high-quality React Native applications.
             </p>
           </CenteredContent>
           
@@ -436,9 +509,9 @@ const MobileAppServicePage = () => {
             <ProcessStep>
               <StepNumber>1</StepNumber>
               <StepContent>
-                <StepTitle>Strategic Discovery</StepTitle>
+                <StepTitle>Discovery & Planning</StepTitle>
                 <StepDescription>
-                  We begin by deeply understanding your business goals, user needs, and market opportunities. This phase includes stakeholder interviews, market research, competitive analysis, and identifying key performance indicators that will define success.
+                  We analyze your requirements, target audience, and business goals to create a comprehensive development strategy and technical architecture for your React Native app.
                 </StepDescription>
               </StepContent>
             </ProcessStep>
@@ -446,9 +519,9 @@ const MobileAppServicePage = () => {
             <ProcessStep>
               <StepNumber>2</StepNumber>
               <StepContent>
-                <StepTitle>Concept & Planning</StepTitle>
+                <StepTitle>UI/UX Design</StepTitle>
                 <StepDescription>
-                  Based on discovery insights, we develop the strategic concept, feature set, and technical approach. This phase includes creating user personas, user journeys, feature prioritization, and a detailed roadmap for development and deployment.
+                  Our designers create intuitive, platform-appropriate interfaces that work seamlessly across iOS and Android while maintaining each platform's design guidelines.
                 </StepDescription>
               </StepContent>
             </ProcessStep>
@@ -456,9 +529,9 @@ const MobileAppServicePage = () => {
             <ProcessStep>
               <StepNumber>3</StepNumber>
               <StepContent>
-                <StepTitle>UX/UI Design</StepTitle>
+                <StepTitle>React Native Development</StepTitle>
                 <StepDescription>
-                  Our designers create intuitive, engaging interfaces that balance user needs with business objectives. This phase includes wireframing, prototyping, visual design, and usability testing to refine the user experience before development begins.
+                  We build your application using React Native best practices, implementing features, integrating APIs, and ensuring optimal performance across both platforms.
                 </StepDescription>
               </StepContent>
             </ProcessStep>
@@ -466,9 +539,9 @@ const MobileAppServicePage = () => {
             <ProcessStep>
               <StepNumber>4</StepNumber>
               <StepContent>
-                <StepTitle>Development & Integration</StepTitle>
+                <StepTitle>Testing & Optimization</StepTitle>
                 <StepDescription>
-                  Our engineering team builds your application using modern development practices and frameworks. This phase includes front-end and back-end development, API integrations, database architecture, and continuous integration/deployment pipelines.
+                  Comprehensive testing on real devices, performance optimization, and platform-specific adjustments to ensure your app works flawlessly on all target devices.
                 </StepDescription>
               </StepContent>
             </ProcessStep>
@@ -476,9 +549,9 @@ const MobileAppServicePage = () => {
             <ProcessStep>
               <StepNumber>5</StepNumber>
               <StepContent>
-                <StepTitle>Quality Assurance</StepTitle>
+                <StepTitle>Deployment</StepTitle>
                 <StepDescription>
-                  We thoroughly test your application across devices, operating systems, and network conditions. This phase includes automated and manual testing, performance optimization, security audits, and bug fixing to ensure a flawless user experience.
+                  We handle the complete app store submission process for both iOS App Store and Google Play Store, including compliance with all platform requirements.
                 </StepDescription>
               </StepContent>
             </ProcessStep>
@@ -486,9 +559,9 @@ const MobileAppServicePage = () => {
             <ProcessStep>
               <StepNumber>6</StepNumber>
               <StepContent>
-                <StepTitle>Deployment & Growth</StepTitle>
+                <StepTitle>Maintenance & Updates</StepTitle>
                 <StepDescription>
-                  We manage the app store submission process and post-launch support. This phase includes deployment strategies, analytics implementation, user feedback collection, and ongoing optimization to continually improve performance and results.
+                  Ongoing support, bug fixes, feature updates, and React Native version upgrades to keep your app current and performing optimally.
                 </StepDescription>
               </StepContent>
             </ProcessStep>
@@ -496,277 +569,15 @@ const MobileAppServicePage = () => {
         </Container>
       </ContentSection>
       
-      <ContentSection>
-        <Container>
-          <CenteredContent>
-            <SectionSubtitle>Technology</SectionSubtitle>
-            <ContentTitle>Native & Cross-Platform Excellence</ContentTitle>
-            <p style={{ color: 'var(--gray)', lineHeight: 1.7, marginBottom: '3rem' }}>
-              We select the optimal technology approach based on your specific business requirements, budget, and timeline—delivering solutions that provide the best balance of performance, user experience, and development efficiency.
-            </p>
-          </CenteredContent>
-          
-          <TabsContainer>
-            <TabsNav>
-              <TabButton 
-                active={activeTab === 'ios'} 
-                onClick={() => setActiveTab('ios')}
-              >
-                iOS Development
-              </TabButton>
-              <TabButton 
-                active={activeTab === 'android'} 
-                onClick={() => setActiveTab('android')}
-              >
-                Android Development
-              </TabButton>
-              <TabButton 
-                active={activeTab === 'cross'} 
-                onClick={() => setActiveTab('cross')}
-              >
-                Cross-Platform
-              </TabButton>
-              <TabButton 
-                active={activeTab === 'backend'} 
-                onClick={() => setActiveTab('backend')}
-              >
-                Backend Services
-              </TabButton>
-            </TabsNav>
-            
-            <TabContent active={activeTab === 'ios'}>
-              <TwoColumnGrid>
-                <ContentText>
-                  <ContentTitle>Native iOS Excellence</ContentTitle>
-                  <p>
-                    Our iOS development team creates exceptional applications that take full advantage of Apple's platform capabilities and design principles. We use Swift and Objective-C to build high-performance, beautiful apps that iOS users expect.
-                  </p>
-                  <p>
-                    Our expertise includes leveraging the latest iOS features such as ARKit, Core ML, HealthKit, and Apple Pay to create innovative experiences that stand out in the App Store. We follow Apple's Human Interface Guidelines while adding unique elements that make your app memorable.
-                  </p>
-                  <p>
-                    Beyond technical excellence, we focus on the strategic aspects of iOS development, including App Store optimization, user acquisition strategies, and leveraging Apple's ecosystem to maximize your business impact.
-                  </p>
-                </ContentText>
-                <ImagePlaceholder>
-                  [iOS Development Image]
-                </ImagePlaceholder>
-              </TwoColumnGrid>
-            </TabContent>
-            
-            <TabContent active={activeTab === 'android'}>
-              <TwoColumnGrid>
-                <ContentText>
-                  <ContentTitle>Android Development Expertise</ContentTitle>
-                  <p>
-                    Our Android development team builds applications that perform beautifully across the diverse Android ecosystem. Using Kotlin and Java, we create apps that combine performance with adaptability to various device types and screen sizes.
-                  </p>
-                  <p>
-                    We leverage advanced Android capabilities including Jetpack components, Material Design, Firebase integration, and hardware-specific features to create rich, responsive applications. Our approach ensures compatibility across the fragmented Android landscape while maintaining a consistent user experience.
-                  </p>
-                  <p>
-                    We also address the strategic aspects of Android development, including Play Store optimization, adaptation to regional Android markets, and leveraging Google's services to enhance functionality and reach.
-                  </p>
-                </ContentText>
-                <ImagePlaceholder>
-                  [Android Development Image]
-                </ImagePlaceholder>
-              </TwoColumnGrid>
-            </TabContent>
-            
-            <TabContent active={activeTab === 'cross'}>
-              <TwoColumnGrid>
-                <ContentText>
-                  <ContentTitle>Cross-Platform Solutions</ContentTitle>
-                  <p>
-                    When appropriate for your business goals, we leverage cross-platform frameworks like React Native and Flutter to accelerate development and maximize efficiency. These technologies allow us to build applications that run on both iOS and Android from a single codebase.
-                  </p>
-                  <p>
-                    Our cross-platform expertise ensures that we can deliver near-native performance and user experience while reducing development time and cost. We carefully evaluate when this approach aligns with your business objectives, considering factors like performance requirements, platform-specific features, and long-term maintenance.
-                  </p>
-                  <p>
-                    By strategically employing cross-platform development, we help businesses reach users across ecosystems more quickly and cost-effectively without sacrificing the quality that drives user engagement and business results.
-                  </p>
-                </ContentText>
-                <ImagePlaceholder>
-                  [Cross-Platform Development Image]
-                </ImagePlaceholder>
-              </TwoColumnGrid>
-            </TabContent>
-            
-            <TabContent active={activeTab === 'backend'}>
-              <TwoColumnGrid>
-                <ContentText>
-                  <ContentTitle>Robust Backend Services</ContentTitle>
-                  <p>
-                    Great mobile apps require powerful backend services to deliver their full value. Our backend development team builds scalable, secure APIs and services that support your mobile applications and integrate with your existing systems.
-                  </p>
-                  <p>
-                    We create custom backend solutions using Node.js, Python, Ruby, and other modern technologies, as well as leveraging managed services like Firebase, AWS Amplify, and Google Cloud Platform to accelerate development when appropriate.
-                  </p>
-                  <p>
-                    Our backend solutions include user authentication, data storage and synchronization, real-time features, payment processing, analytics, and integration with third-party services. We design these systems with scalability, security, and performance in mind, ensuring they can grow with your business.
-                  </p>
-                </ContentText>
-                <ImagePlaceholder>
-                  [Backend Services Image]
-                </ImagePlaceholder>
-              </TwoColumnGrid>
-            </TabContent>
-          </TabsContainer>
-        </Container>
-      </ContentSection>
-      
-      <ContentSection style={{ backgroundColor: 'var(--light)' }}>
-        <Container>
-          <TwoColumnGrid>
-            <ImagePlaceholder>
-              [Business Impact Image]
-            </ImagePlaceholder>
-            <ContentText>
-              <SectionSubtitle>Business Impact</SectionSubtitle>
-              <ContentTitle>Strategic Value of Mobile Applications</ContentTitle>
-              <p>
-                Mobile apps deliver significant business value when developed with clear strategic intent. Our clients consistently achieve meaningful results across several key areas:
-              </p>
-              <ul>
-                <li><strong>Enhanced Customer Engagement:</strong> Mobile apps typically increase customer engagement by 88% compared to mobile websites, with users spending 3-4x more time in apps.</li>
-                <li><strong>New Revenue Channels:</strong> Well-designed mobile apps can open direct monetization opportunities through in-app purchases, subscriptions, and premium features.</li>
-                <li><strong>Operational Efficiency:</strong> Enterprise mobile apps streamline internal processes, reducing operational costs by 20-30% in many cases while improving data accuracy.</li>
-                <li><strong>Improved Customer Insights:</strong> Mobile apps provide rich user data and behavior analytics that inform product improvements and business strategy.</li>
-                <li><strong>Competitive Advantage:</strong> Innovative mobile experiences create significant differentiation, with 67% of companies reporting that mobile apps give them an edge over competitors.</li>
-                <li><strong>Brand Presence:</strong> Well-designed mobile apps strengthen brand presence, with users interacting with your brand 2-3 times daily on average.</li>
-              </ul>
-              <p>
-                These outcomes demonstrate why forward-thinking companies prioritize mobile app development as a core component of their digital strategy rather than a one-time technical project.
-              </p>
-            </ContentText>
-          </TwoColumnGrid>
-        </Container>
-      </ContentSection>
-      
-      <ContentSection>
-        <Container>
-          <CenteredContent>
-            <SectionSubtitle>Services</SectionSubtitle>
-            <ContentTitle>Comprehensive Mobile Solutions</ContentTitle>
-            <p style={{ color: 'var(--gray)', lineHeight: 1.7, marginBottom: '3rem' }}>
-              Our mobile app development services span the entire product lifecycle, from conception to growth:
-            </p>
-          </CenteredContent>
-          
-          <CardsGrid>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <CardTitle>Mobile Strategy Consulting</CardTitle>
-              <CardDescription>
-                Strategic planning to define your mobile approach, identify opportunities, and create a roadmap aligned with your business objectives.
-              </CardDescription>
-            </Card>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <CardTitle>Native iOS Development</CardTitle>
-              <CardDescription>
-                High-performance iOS applications that leverage the full capabilities of Apple's ecosystem and provide exceptional user experiences.
-              </CardDescription>
-            </Card>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <CardTitle>Native Android Development</CardTitle>
-              <CardDescription>
-                Robust Android applications designed to deliver consistent experiences across the diverse Android device landscape.
-              </CardDescription>
-            </Card>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <CardTitle>Cross-Platform Development</CardTitle>
-              <CardDescription>
-                Efficient multi-platform solutions using React Native or Flutter when appropriate for your business goals and technical requirements.
-              </CardDescription>
-            </Card>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <CardTitle>UX/UI Design for Mobile</CardTitle>
-              <CardDescription>
-                Human-centered design that creates intuitive, engaging interfaces optimized for mobile contexts and user behaviors.
-              </CardDescription>
-            </Card>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <CardTitle>Backend Development</CardTitle>
-              <CardDescription>
-                Scalable, secure server-side solutions that power your mobile applications and integrate with existing systems.
-              </CardDescription>
-            </Card>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              <CardTitle>QA & Testing</CardTitle>
-              <CardDescription>
-                Comprehensive quality assurance across devices, operating systems, and conditions to ensure reliable performance.
-              </CardDescription>
-            </Card>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-            >
-              <CardTitle>App Store Optimization</CardTitle>
-              <CardDescription>
-                Strategic approach to improving visibility and conversion rates in app stores to maximize download and installation rates.
-              </CardDescription>
-            </Card>
-            <Card
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              <CardTitle>Post-Launch Support</CardTitle>
-              <CardDescription>
-                Ongoing maintenance, performance optimization, feature enhancements, and technical support to ensure long-term success.
-              </CardDescription>
-            </Card>
-          </CardsGrid>
-        </Container>
-      </ContentSection>
-      
       <CTASection>
         <Container>
           <CenteredContent>
-            <ContentTitle>Ready to Transform Your Mobile Strategy?</ContentTitle>
+            <SectionSubtitle>Ready to Start?</SectionSubtitle>
+            <ContentTitle>Let's Build Your React Native App</ContentTitle>
             <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
-              Let's discuss how a strategic mobile application can help you achieve your business objectives. Our team will work with you to understand your specific challenges and create a tailored solution.
+              Ready to bring your mobile app idea to life with React Native? Let's discuss your project and create a solution that works perfectly for both iOS and Android users.
             </p>
-            <CTAButton href="/#contact">Schedule a Strategy Session</CTAButton>
+            <CTAButton href="/#contact">Start Your Project</CTAButton>
           </CenteredContent>
         </Container>
       </CTASection>
@@ -776,4 +587,4 @@ const MobileAppServicePage = () => {
   );
 };
 
-export default MobileAppServicePage; 
+export default ReactNativeMobileApp; 
