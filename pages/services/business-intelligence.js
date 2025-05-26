@@ -236,7 +236,7 @@ const BusinessIntelligencePage = () => {
   return (
     <PageContainer>
       <Head>
-        <title>Business Intelligence Solutions | TechNova</title>
+        <title>Business Intelligence Solutions | Lucid Code Labs Software</title>
         <meta name="description" content="Transform your business data into powerful insights with our comprehensive business intelligence solutions. Real-time dashboards, automated reporting, and actionable insights." />
       </Head>
       
@@ -278,7 +278,7 @@ const BusinessIntelligencePage = () => {
                 In today's complex business environment, organizations are overwhelmed with data but struggling to extract meaningful insights. Traditional reporting approaches are often slow, fragmented, and fail to deliver the actionable intelligence needed for strategic decisions.
               </p>
               <p>
-                At TechNova, we take a holistic approach to business intelligence that focuses on outcomes rather than just outputs. Our solutions are designed not only to visualize data but to transform it into a strategic asset that drives measurable business value.
+                At Lucid Code Labs, we take a holistic approach to business intelligence that focuses on outcomes rather than just outputs. Our solutions are designed not only to visualize data but to transform it into a strategic asset that drives measurable business value.
               </p>
               <p>
                 We combine deep technical expertise with business acumen to build BI systems that serve as the single source of truth across your organization. Our consultative approach ensures that your BI solution aligns perfectly with your business goals, data literacy levels, and decision-making processes.
@@ -477,7 +477,7 @@ const BusinessIntelligencePage = () => {
             <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
               Let's discuss how our business intelligence solutions can help you achieve your business goals and deliver measurable results. Our team will work with you to create a tailored approach.
             </p>
-            <CTAButton href="/contact">Schedule a BI Strategy Session</CTAButton>
+            <CTAButton href="/#contact">Schedule a BI Strategy Session</CTAButton>
           </CenteredContent>
         </Container>
       </CTASection>

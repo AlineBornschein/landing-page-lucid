@@ -128,14 +128,6 @@ const TallyFormWrapper = styled(motion.div)`
   overflow: hidden;
 `;
 
-const FormSuccess = styled(motion.div)`
-  padding: 1rem;
-  background-color: #d4edda;
-  color: #155724;
-  border-radius: 0.5rem;
-  margin-bottom: 1.5rem;
-`;
-
 const AnimatedHeroBanner = styled(motion.section)`
   width: 100%;
   min-height: 600px;
@@ -193,7 +185,7 @@ const AnimatedHeroSubtitle = styled(motion.p)`
   }
 `;
 
-const AnimatedHeroButton = styled(motion.a)`
+const AnimatedHeroButton = styled(motion.button)`
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
@@ -203,7 +195,7 @@ const AnimatedHeroButton = styled(motion.a)`
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   font-size: 1.1rem;
-  text-decoration: none;
+  border: none;
   transition: background 0.2s, transform 0.2s;
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   cursor: pointer;
@@ -214,34 +206,19 @@ const AnimatedHeroButton = styled(motion.a)`
 `;
 
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  
-  // Load Tally script when component mounts
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    // If Tally is already loaded, initialize embeds
-    if (typeof window !== 'undefined' && typeof window.Tally !== 'undefined') {
-      window.Tally.loadEmbeds();
-    }
+    setIsClient(true);
   }, []);
-  
-  const handleHeroClick = (e) => {
-    e.preventDefault();
+
+  const handleHeroClick = () => {
     const el = document.getElementById('contact');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
   
   return (
     <>
-      <Script 
-        src="https://tally.so/widgets/embed.js" 
-        strategy="afterInteractive"
-        onLoad={() => {
-          if (typeof window.Tally !== 'undefined') {
-            window.Tally.loadEmbeds();
-          }
-        }}
-      />
       <AnimatedHeroBanner
         initial={{ scale: 1 }}
         animate={{ scale: 1.05 }}
@@ -268,7 +245,6 @@ const Contact = () => {
             Start the conversation today
           </AnimatedHeroSubtitle>
           <AnimatedHeroButton
-            href="#contact"
             onClick={handleHeroClick}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -293,17 +269,40 @@ const Contact = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <iframe 
-                data-tally-src="https://tally.so/embed/np9Xr1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                loading="lazy" 
-                width="100%" 
-                height="100%" 
-                frameBorder="0" 
-                marginHeight="0" 
-                marginWidth="0" 
-                title="Contact Form"
-                style={{ minHeight: '500px' }}
-              ></iframe>
+              {isClient ? (
+                <>
+                  <Script 
+                    src="https://tally.so/widgets/embed.js" 
+                    strategy="afterInteractive"
+                    onLoad={() => {
+                      if (typeof window !== 'undefined' && window.Tally) {
+                        window.Tally.loadEmbeds();
+                      }
+                    }}
+                  />
+                  <iframe 
+                    data-tally-src="https://tally.so/embed/np9Xr1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                    loading="lazy" 
+                    width="100%" 
+                    height="100%" 
+                    frameBorder="0" 
+                    marginHeight="0" 
+                    marginWidth="0" 
+                    title="Contact Form"
+                    style={{ minHeight: '500px' }}
+                  />
+                </>
+              ) : (
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  minHeight: '500px',
+                  color: '#64748b'
+                }}>
+                  Loading contact form...
+                </div>
+              )}
             </TallyFormWrapper>
             
             <ContactInfo>

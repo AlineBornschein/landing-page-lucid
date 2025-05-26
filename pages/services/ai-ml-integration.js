@@ -236,7 +236,7 @@ const AIMLIntegrationPage = () => {
   return (
     <PageContainer>
       <Head>
-        <title>AI & Machine Learning Integration | TechNova</title>
+        <title>AI & Machine Learning Integration | Lucid Code Labs Software</title>
         <meta name="description" content="Enhance your existing systems with AI & ML capabilities. From natural language processing to computer vision and predictive analytics, we integrate intelligent solutions into your business." />
       </Head>
       
@@ -280,7 +280,7 @@ const AIMLIntegrationPage = () => {
                 In today's competitive landscape, businesses are looking for ways to leverage artificial intelligence and machine learning without completely overhauling their existing technology infrastructure. The challenge lies in determining where and how to apply these technologies for maximum impact.
               </p>
               <p>
-                At TechNova, we take a pragmatic approach to AI integration. Rather than pushing for complete system replacements, we identify strategic points in your existing workflows and applications where AI can create the most value. This targeted approach allows for faster implementation, quicker ROI, and minimized disruption.
+                At Lucid Code Labs, we take a pragmatic approach to AI integration. Rather than pushing for complete system replacements, we identify strategic points in your existing workflows and applications where AI can create the most value. This targeted approach allows for faster implementation, quicker ROI, and minimized disruption.
               </p>
               <p>
                 Our AI integration methodology begins with a thorough assessment of your business objectives, existing systems, and data assets. We then design tailored AI solutions that complement your current infrastructure while adding intelligent capabilities that drive measurable business outcomes.
@@ -479,7 +479,7 @@ const AIMLIntegrationPage = () => {
             <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
               Let's discuss how AI and machine learning integration can help you achieve your business goals. Our team will work with you to identify the most impactful opportunities for intelligent enhancement.
             </p>
-            <CTAButton href="/contact">Schedule an AI Integration Consultation</CTAButton>
+            <CTAButton href="/#contact">Schedule an AI Integration Consultation</CTAButton>
           </CenteredContent>
         </Container>
       </CTASection>

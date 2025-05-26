@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -66,7 +66,7 @@ const Subtitle = styled.p`
 
 const ContentSection = styled.section`
   padding: 5rem 2rem;
-  background: ${props => props.altBg ? 'var(--background-light)' : 'white'};
+  background: ${props => props.$altBg ? 'var(--background-light)' : 'white'};
 `;
 
 const SectionTitle = styled.h2`
@@ -173,16 +173,16 @@ const TechnologyTabs = styled.div`
 
 const Tab = styled.button`
   padding: 0.75rem 1.5rem;
-  border: 2px solid ${props => props.active ? 'var(--primary)' : '#e5e7eb'};
-  background: ${props => props.active ? 'var(--primary)' : 'transparent'};
-  color: ${props => props.active ? 'white' : 'var(--text-dark)'};
+  border: 2px solid ${props => props.$active ? 'var(--primary)' : '#e5e7eb'};
+  background: ${props => props.$active ? 'var(--primary)' : 'transparent'};
+  color: ${props => props.$active ? 'white' : 'var(--text-dark)'};
   border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   
   &:hover {
-    background: ${props => props.active ? 'var(--primary-dark)' : '#f3f4f6'};
+    background: ${props => props.$active ? 'var(--primary-dark)' : '#f3f4f6'};
   }
 `;
 
@@ -231,15 +231,29 @@ const CTAButton = styled.a`
 
 export default function WebDevelopment() {
   const [activeTech, setActiveTech] = useState("frontend");
+  const [scrolled, setScrolled] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   return (
     <PageContainer>
       <Head>
-        <title>Web Development Services | TechNova Solutions</title>
+        <title>Web Development Services | Lucid Code Labs</title>
         <meta name="description" content="Strategic web development solutions to transform your business with modern, responsive websites and web applications." />
       </Head>
       
-      <Navbar />
+      <Navbar scrolled={scrolled} />
       
       <HeroSection>
         <SectionContainer>
@@ -303,7 +317,7 @@ export default function WebDevelopment() {
         </SectionContainer>
       </ContentSection>
       
-      <ContentSection altBg>
+      <ContentSection $altBg>
         <SectionContainer>
           <SectionTitle>Our Web Development Process</SectionTitle>
           <SectionDescription>
@@ -389,25 +403,25 @@ export default function WebDevelopment() {
           
           <TechnologyTabs>
             <Tab 
-              active={activeTech === "frontend"} 
+              $active={activeTech === "frontend"} 
               onClick={() => setActiveTech("frontend")}
             >
               Frontend
             </Tab>
             <Tab 
-              active={activeTech === "backend"} 
+              $active={activeTech === "backend"} 
               onClick={() => setActiveTech("backend")}
             >
               Backend
             </Tab>
             <Tab 
-              active={activeTech === "cms"} 
+              $active={activeTech === "cms"} 
               onClick={() => setActiveTech("cms")}
             >
               CMS
             </Tab>
             <Tab 
-              active={activeTech === "ecommerce"} 
+              $active={activeTech === "ecommerce"} 
               onClick={() => setActiveTech("ecommerce")}
             >
               E-Commerce

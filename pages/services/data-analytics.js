@@ -236,7 +236,7 @@ const DataAnalyticsPage = () => {
   return (
     <PageContainer>
       <Head>
-        <title>Data Analytics Services | TechNova</title>
+        <title>Data Analytics Services | Lucid Code Labs Software</title>
         <meta name="description" content="Turn raw data into actionable insights with our data analytics solutions. We help you make informed decisions and identify new business opportunities." />
       </Head>
       
@@ -278,7 +278,7 @@ const DataAnalyticsPage = () => {
                 In today's business landscape, data is abundant but insights are scarce. Many organizations collect vast amounts of data but struggle to transform it into meaningful action that drives business value.
               </p>
               <p>
-                At TechNova, we take a business-first approach to data analytics. We begin by understanding your strategic objectives, key performance indicators, and decision-making challenges. This allows us to design analytics solutions that deliver relevant insights directly aligned with your business goals.
+                At Lucid Code Labs, we take a business-first approach to data analytics. We begin by understanding your strategic objectives, key performance indicators, and decision-making challenges. This allows us to design analytics solutions that deliver relevant insights directly aligned with your business goals.
               </p>
               <p>
                 Our consultative process combines deep technical expertise with business acumen. We help you identify which questions to ask of your data, what metrics truly matter to your organization, and how to implement analytics in a way that drives measurable outcomes rather than just producing reports.
@@ -474,7 +474,7 @@ const DataAnalyticsPage = () => {
             <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
               Let's discuss how our data analytics solutions can help you achieve your business goals. Our team will work with you to understand your specific challenges and create a tailored solution.
             </p>
-            <CTAButton href="/contact">Schedule a Data Strategy Session</CTAButton>
+            <CTAButton href="/#contact">Schedule a Data Strategy Session</CTAButton>
           </CenteredContent>
         </Container>
       </CTASection>

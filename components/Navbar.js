@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import NextLink from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const NavbarContainer = styled.nav`
   position: fixed;
@@ -12,9 +13,9 @@ const NavbarContainer = styled.nav`
   width: 100%;
   z-index: 1000;
   transition: all 0.3s ease;
-  background-color: ${props => props.scrolled ? 'white' : 'rgba(29, 78, 216, 0.15)'};
-  backdrop-filter: ${props => props.scrolled ? 'none' : 'blur(10px)'};
-  box-shadow: ${props => props.scrolled ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
+  background-color: ${props => props.$scrolled ? 'white' : 'rgba(29, 78, 216, 0.15)'};
+  backdrop-filter: ${props => props.$scrolled ? 'none' : 'blur(10px)'};
+  box-shadow: ${props => props.$scrolled ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'};
 `;
 
 const NavInner = styled.div`
@@ -55,7 +56,7 @@ const ServicesButton = styled.div`
   align-items: center;
   font-weight: 500;
   cursor: pointer;
-  color: ${props => props.scrolled ? 'var(--dark)' : 'white'};
+  color: ${props => props.$scrolled ? 'var(--dark)' : 'white'};
   transition: color 0.3s ease;
   
   &:hover {
@@ -82,7 +83,7 @@ const DropdownIcon = styled.span`
   margin-left: 0.25rem;
   font-size: 0.75rem;
   transition: transform 0.3s ease;
-  transform: ${props => props.open ? 'rotate(180deg)' : 'rotate(0)'};
+  transform: ${props => props.$open ? 'rotate(180deg)' : 'rotate(0)'};
 `;
 
 const ServicesDropdown = styled(motion.div)`
@@ -112,7 +113,7 @@ const ServicesDropdown = styled(motion.div)`
   }
 `;
 
-const DesktopServiceCard = styled.a`
+const DesktopServiceCard = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 1rem;
@@ -159,12 +160,13 @@ const DesktopServiceDescription = styled.p`
   line-height: 1.4;
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled.div`
   font-weight: 500;
   cursor: pointer;
   position: relative;
-  color: ${props => props.scrolled ? 'var(--dark)' : 'white'};
+  color: ${props => props.$scrolled ? 'var(--dark)' : 'white'};
   transition: color 0.3s ease;
+  text-decoration: none;
   
   &:hover {
     color: var(--primary);
@@ -187,7 +189,7 @@ const NavLink = styled(Link)`
   }
 `;
 
-const ContactButton = styled.button`
+const ContactButton = styled.div`
   display: none;
   padding: 0.75rem 1.5rem;
   background-color: var(--primary);
@@ -210,7 +212,7 @@ const ContactButton = styled.button`
 const MobileMenuButton = styled.button`
   background: none;
   border: none;
-  color: ${props => props.scrolled ? 'var(--dark)' : 'white'};
+  color: ${props => props.$scrolled ? 'var(--dark)' : 'white'};
   font-size: 1.5rem;
   cursor: pointer;
   z-index: 1001;
@@ -280,7 +282,7 @@ const MobileNavItem = styled.div`
   }
 `;
 
-const MobileNavLink = styled(Link)`
+const MobileNavLink = styled.div`
   display: block;
   width: 100%;
   padding: 1.25rem 2rem;
@@ -290,6 +292,7 @@ const MobileNavLink = styled(Link)`
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: left;
+  text-decoration: none;
   
   &:hover {
     background-color: rgba(255, 255, 255, 0.05);
@@ -320,7 +323,7 @@ const ExpandableNavHeader = styled.div`
 
 const ExpandIcon = styled.span`
   transition: transform 0.3s ease;
-  transform: ${props => props.expanded ? 'rotate(180deg)' : 'rotate(0)'};
+  transform: ${props => props.$expanded ? 'rotate(180deg)' : 'rotate(0)'};
 `;
 
 const ServicesGrid = styled(motion.div)`
@@ -369,6 +372,8 @@ const Navbar = ({ scrolled }) => {
   const [servicesExpanded, setServicesExpanded] = useState(false);
   const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const dropdownTimeoutRef = useRef(null);
+  const router = useRouter();
   
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -385,6 +390,32 @@ const Navbar = ({ scrolled }) => {
     setDesktopDropdownOpen(!desktopDropdownOpen);
   };
 
+  // Custom click handler for smooth scrolling when on home page
+  const handleSectionClick = (e, sectionId) => {
+    if (router.pathname === '/') {
+      e.preventDefault();
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    // If not on home page, let Next.js Link handle navigation
+  };
+
+  // Improved hover handlers with delay
+  const handleMouseEnter = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setDesktopDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setDesktopDropdownOpen(false);
+    }, 150); // 150ms delay
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -396,6 +427,9 @@ const Navbar = ({ scrolled }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
     };
   }, []);
   
@@ -475,9 +509,9 @@ const Navbar = ({ scrolled }) => {
   ];
   
   return (
-    <NavbarContainer scrolled={scrolled}>
+    <NavbarContainer $scrolled={scrolled}>
       <NavInner>
-        <NextLink href="/" passHref>
+        <NextLink href="/">
           <Logo>
             <Image src="/images/logo1.png" alt="Lucid Code Labs Logo" width={150} height={40} priority />
           </Logo>
@@ -486,15 +520,15 @@ const Navbar = ({ scrolled }) => {
         <NavLinks>
           <NavItem ref={dropdownRef}>
             <ServicesDropdownWrapper 
-              onMouseEnter={() => setDesktopDropdownOpen(true)}
-              onMouseLeave={() => setDesktopDropdownOpen(false)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
               <ServicesButton 
-                scrolled={scrolled} 
+                $scrolled={scrolled} 
                 onClick={toggleDesktopDropdown}
               >
                 Our Services
-                <DropdownIcon open={desktopDropdownOpen}>▼</DropdownIcon>
+                <DropdownIcon $open={desktopDropdownOpen}>▼</DropdownIcon>
               </ServicesButton>
               
               <AnimatePresence>
@@ -509,7 +543,6 @@ const Navbar = ({ scrolled }) => {
                       <NextLink 
                         href={service.link} 
                         key={index}
-                        passHref
                       >
                         <DesktopServiceCard>
                           <DesktopServiceIcon>{service.icon}</DesktopServiceIcon>
@@ -526,53 +559,37 @@ const Navbar = ({ scrolled }) => {
             </ServicesDropdownWrapper>
           </NavItem>
 
-          {/* <NavLink 
-            to="team" 
-            smooth={true} 
-            duration={500} 
-            spy={true} 
-            activeClass="active"
-            scrolled={scrolled}
-          >
-            Our Team
-          </NavLink> */}
-          <NavLink 
-            to="vision" 
-            smooth={true} 
-            duration={500} 
-            spy={true} 
-            activeClass="active"
-            scrolled={scrolled}
-          >
-            Our Vision
-          </NavLink>
-          {/* <NavLink 
-            to="clients" 
-            smooth={true} 
-            duration={500} 
-            spy={true} 
-            activeClass="active"
-            scrolled={scrolled}
-          >
-            Our Clients
-          </NavLink> */}
-          <NavLink 
-            to="journey" 
-            smooth={true} 
-            duration={500} 
-            spy={true} 
-            activeClass="active"
-            scrolled={scrolled}
-          >
-            Your Journey
-          </NavLink>
+          <NavItem>
+            <NextLink href="/#vision">
+              <NavLink 
+                $scrolled={scrolled}
+                onClick={(e) => handleSectionClick(e, 'vision')}
+              >
+                Our Vision
+              </NavLink>
+            </NextLink>
+          </NavItem>
+          <NavItem>
+            <NextLink href="/#journey">
+              <NavLink 
+                $scrolled={scrolled}
+                onClick={(e) => handleSectionClick(e, 'journey')}
+              >
+                Your Journey
+              </NavLink>
+            </NextLink>
+          </NavItem>
         </NavLinks>
         
-        <ContactButton as={Link} to="contact" smooth={true} duration={500}>
-          Contact Us
-        </ContactButton>
+        <NextLink href="/#contact">
+          <ContactButton 
+            onClick={(e) => handleSectionClick(e, 'contact')}
+          >
+            Contact Us
+          </ContactButton>
+        </NextLink>
         
-        <MobileMenuButton onClick={toggleMobileMenu} scrolled={scrolled}>
+        <MobileMenuButton onClick={toggleMobileMenu} $scrolled={scrolled}>
           {mobileMenuOpen ? '' : '☰'}
         </MobileMenuButton>
       </NavInner>
@@ -596,7 +613,7 @@ const Navbar = ({ scrolled }) => {
               <ExpandableNavItem>
                 <ExpandableNavHeader onClick={toggleServicesExpanded}>
                   Our Services
-                  <ExpandIcon expanded={servicesExpanded}>▼</ExpandIcon>
+                  <ExpandIcon $expanded={servicesExpanded}>▼</ExpandIcon>
                 </ExpandableNavHeader>
                 <AnimatePresence>
                   {servicesExpanded && (
@@ -610,20 +627,19 @@ const Navbar = ({ scrolled }) => {
                         <NextLink 
                           href={service.link} 
                           key={index}
-                          passHref
                         >
-                          <a style={{ textDecoration: 'none' }}>
-                            <div style={{ 
-                              display: 'flex',
-                              alignItems: 'center',
-                              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                              padding: '0.5rem 0.75rem',
-                              borderRadius: '6px',
-                            }}>
-                              <ServiceIcon>{service.icon}</ServiceIcon>
-                              <ServiceTitle>{service.title}</ServiceTitle>
-                            </div>
-                          </a>
+                          <div style={{ 
+                            display: 'flex',
+                            alignItems: 'center',
+                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            padding: '0.5rem 0.75rem',
+                            borderRadius: '6px',
+                            textDecoration: 'none',
+                            cursor: 'pointer'
+                          }}>
+                            <ServiceIcon>{service.icon}</ServiceIcon>
+                            <ServiceTitle>{service.title}</ServiceTitle>
+                          </div>
                         </NextLink>
                       ))}
                     </ServicesGrid>
@@ -631,59 +647,43 @@ const Navbar = ({ scrolled }) => {
                 </AnimatePresence>
               </ExpandableNavItem>
               
-              {/* <MobileNavItem>
-                <MobileNavLink 
-                  to="team" 
-                  smooth={true} 
-                  duration={500}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Our Team
-                </MobileNavLink>
-              </MobileNavItem> */}
-              
               <MobileNavItem>
-                <MobileNavLink 
-                  to="vision" 
-                  smooth={true} 
-                  duration={500}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Our Vision
-                </MobileNavLink>
-              </MobileNavItem>
-              
-              {/* <MobileNavItem>
-                <MobileNavLink 
-                  to="clients" 
-                  smooth={true} 
-                  duration={500}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Our Clients
-                </MobileNavLink>
-              </MobileNavItem> */}
-              
-              <MobileNavItem>
-                <MobileNavLink 
-                  to="journey" 
-                  smooth={true} 
-                  duration={500}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Your Journey
-                </MobileNavLink>
+                <NextLink href="/#vision">
+                  <MobileNavLink 
+                    onClick={(e) => {
+                      handleSectionClick(e, 'vision');
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    Our Vision
+                  </MobileNavLink>
+                </NextLink>
               </MobileNavItem>
               
               <MobileNavItem>
-                <MobileNavLink 
-                  to="contact" 
-                  smooth={true} 
-                  duration={500}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Contact Us
-                </MobileNavLink>
+                <NextLink href="/#journey">
+                  <MobileNavLink 
+                    onClick={(e) => {
+                      handleSectionClick(e, 'journey');
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    Your Journey
+                  </MobileNavLink>
+                </NextLink>
+              </MobileNavItem>
+              
+              <MobileNavItem>
+                <NextLink href="/#contact">
+                  <MobileNavLink 
+                    onClick={(e) => {
+                      handleSectionClick(e, 'contact');
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    Contact Us
+                  </MobileNavLink>
+                </NextLink>
               </MobileNavItem>
             </MobileNavItems>
           </MobileMenu>

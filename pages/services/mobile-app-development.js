@@ -329,7 +329,7 @@ const MobileAppServicePage = () => {
   return (
     <PageContainer>
       <Head>
-        <title>Mobile App Development | TechNova</title>
+        <title>Mobile App Development | Lucid Code Labs Software</title>
         <meta name="description" content="Strategic mobile app development services that transform ideas into successful digital products. We build custom iOS and Android apps that create business value." />
       </Head>
       
@@ -367,7 +367,7 @@ const MobileAppServicePage = () => {
               <SectionSubtitle>Our Approach</SectionSubtitle>
               <ContentTitle>Mobile Development as a Strategic Business Initiative</ContentTitle>
               <p>
-                In today's digital landscape, mobile apps are not just technical products—they're strategic business assets that can transform customer relationships, operational efficiency, and market positioning. At TechNova, we approach mobile app development through this strategic lens.
+                In today's digital landscape, mobile apps are not just technical products—they're strategic business assets that can transform customer relationships, operational efficiency, and market positioning. At Lucid Code Labs, we approach mobile app development through this strategic lens.
               </p>
               <p>
                 Our process begins with understanding your business objectives, user needs, and market opportunities. We focus on identifying the unique value your mobile application can deliver, ensuring that every feature contributes to your core business goals.
@@ -766,7 +766,7 @@ const MobileAppServicePage = () => {
             <p style={{ color: 'var(--gray)', lineHeight: 1.7 }}>
               Let's discuss how a strategic mobile application can help you achieve your business objectives. Our team will work with you to understand your specific challenges and create a tailored solution.
             </p>
-            <CTAButton href="/contact">Schedule a Strategy Session</CTAButton>
+            <CTAButton href="/#contact">Schedule a Strategy Session</CTAButton>
           </CenteredContent>
         </Container>
       </CTASection>
