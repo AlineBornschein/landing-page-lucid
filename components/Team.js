@@ -133,48 +133,6 @@ const Team = () => {
       name: 'George Beard',
       position: 'Founder & Fullstack Developer',
       image: '/images/geroge.png'
-    },
-    {
-      id: 2,
-      name: 'Maya Pandit',
-      position: 'Backend Developer',
-      image: '/images/tim.png'
-    },
-    {
-      id: 3,
-      name: 'Simon Lau',
-      position: 'Mobile Developer',
-      image: '/images/maya.png'
-    },
-    {
-      id: 4,
-      name: 'Michael Redford',
-      position: 'Software Architect',
-      image: '/images/michael.png'
-    },
-    {
-      id: 5,
-      name: 'Bianca Smith',
-      position: 'Lead Designer',
-      image: '/images/bianca.png'
-    },
-    {
-      id: 6,
-      name: 'Andy Becker',
-      position: 'Data Engineer',
-      image: '/images/andy2.png'
-    },
-    {
-      id: 7,
-      name: 'Rushan Singh',
-      position: 'Frontend Developer',
-      image: '/images/rushan.png'
-    },
-    {
-      id: 8,
-      name: 'Mirta Svobodá',
-      position: 'UX/UI Designer',
-      image: '/images/mirta.png'
     }
   ];
 
