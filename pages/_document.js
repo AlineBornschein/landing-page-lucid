@@ -32,9 +32,15 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <meta name="description" content="Professional software development company specializing in AI, web development, and digital transformation" />
-          <link rel="icon" href="/favicon.ico" />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+          <meta
+            name="description"
+            content="Professional software development company specializing in AI, web development, and digital transformation"
+          />
+          <link rel="icon" href="/images/logo1.png" type="image/png" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+          />
         </Head>
         <body>
           <Main />
@@ -43,4 +49,4 @@ export default class MyDocument extends Document {
       </Html>
     );
   }
-} 
+}

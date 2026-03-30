@@ -1,7 +1,9 @@
 import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
+import { portfolioProjects } from '../data/portfolioProjects';
 
 const ClientsSection = styled.section`
   padding: 6rem 0;
@@ -37,17 +39,8 @@ const ClientsGrid = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-bottom: 4rem;
-  
   @media (min-width: 640px) {
     grid-template-columns: repeat(3, 1fr);
-  }
-  
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(5, 1fr);
   }
 `;
 
@@ -58,10 +51,11 @@ const ClientCard = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  min-height: 100px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  
+  cursor: pointer;
+  text-align: center;
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -177,18 +171,11 @@ const AuthorRole = styled.p`
   color: var(--gray);
 `;
 
-const clients = [
-  { id: 1, name: 'TechCorp' },
-  { id: 2, name: 'InnoSystems' },
-  { id: 3, name: 'GlobalFin' },
-  { id: 4, name: 'MediaPulse' },
-  { id: 5, name: 'HealthNet' },
-  { id: 6, name: 'EduLearn' },
-  { id: 7, name: 'RetailPro' },
-  { id: 8, name: 'TravelWise' },
-  { id: 9, name: 'FoodDelight' },
-  { id: 10, name: 'EcoTech' },
-];
+function bubbleUnit(position, index, salt) {
+  const p = position === 'top-left' ? 1.234 : 5.678;
+  const x = Math.sin(p * 12.9898 + index * 78.233 + salt * 43.758) * 43758.5453;
+  return x - Math.floor(x);
+}
 
 const testimonial = {
   content: "Working with Lucid Code Labs has been an incredible experience. They took our vision for Loyalty Club PLC and brought it to life with a level of expertise, creativity, and attention to detail that exceeded our expectations. Their team developed a robust, user-friendly loyalty platform that not only looks fantastic but also works flawlessly for both our business partners and customers.\n\nThroughout the project, communication was clear, deadlines were met, and they always went the extra mile to ensure everything was exactly how we envisioned. Thanks to Lucid Code Labs, we now have a powerful loyalty software that is the foundation of our business and allows us to confidently grow and expand. We couldn't be happier with the result and highly recommend them to anyone looking for a top-tier development partner.",
@@ -298,20 +285,19 @@ const Clients = () => {
   const generateBubbles = (count, position) => {
     return Array.from({ length: count }, (_, i) => ({
       id: `${position}-${i}`,
-      size: Math.random() * 100 + 50, // 50-150px
+      size: bubbleUnit(position, i, 1) * 100 + 50,
       delay: i * 0.1,
-      duration: Math.random() * 1.5 + 2, // 2-3.5s for slightly slower upward movement
+      duration: bubbleUnit(position, i, 2) * 1.5 + 2,
       position,
-      ...(position === 'top-left' 
+      ...(position === 'top-left'
         ? {
-            x: Math.random() * 200 - 100, // Spread X: -100 to +100
-            y: Math.random() * 400 + 200, // Y spread: 200-600px downward
+            x: bubbleUnit(position, i, 3) * 200 - 100,
+            y: bubbleUnit(position, i, 4) * 400 + 200,
           }
         : {
-            x: Math.random() * -300, // Spread X: -300 to 0 (leftward)
-            y: Math.random() * -500 - 100, // Y spread: -600 to -100 (upward)
-          }
-      )
+            x: bubbleUnit(position, i, 5) * -300,
+            y: bubbleUnit(position, i, 6) * -500 - 100,
+          }),
     }));
   };
 
@@ -354,7 +340,7 @@ const Clients = () => {
         <SectionHeader>
           <Title>Our Clients</Title>
           <Subtitle>
-            Trusted by leading companies across various industries
+            Organisations we have partnered with—click a name to read the case study
           </Subtitle>
         </SectionHeader>
         
@@ -365,12 +351,16 @@ const Clients = () => {
           animate={inView ? "visible" : "hidden"}
         >
           <ClientsGrid>
-            {clients.map((client) => (
-              <ClientCard key={client.id} variants={itemVariants}>
-                <ClientLogo>
-                  {client.name}
-                </ClientLogo>
-              </ClientCard>
+            {portfolioProjects.map((client) => (
+              <Link
+                key={client.slug}
+                href={`/work/${client.slug}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <ClientCard variants={itemVariants}>
+                  <ClientLogo>{client.name}</ClientLogo>
+                </ClientCard>
+              </Link>
             ))}
           </ClientsGrid>
         </motion.div>
@@ -427,6 +417,27 @@ const Clients = () => {
               <TestimonialContent>
                 {testimonial.content}
               </TestimonialContent>
+              <p
+                style={{
+                  textAlign: 'center',
+                  marginTop: '1.5rem',
+                  marginBottom: 0,
+                  position: 'relative',
+                  zIndex: 2,
+                }}
+              >
+                <Link
+                  href="/work/loyalty-club-plc"
+                  style={{
+                    color: 'var(--primary)',
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    fontStyle: 'normal',
+                  }}
+                >
+                  Read the Loyalty Club PLC case study →
+                </Link>
+              </p>
               <QuoteMark
                 custom={false}
                 variants={quoteVariants}

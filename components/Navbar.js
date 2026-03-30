@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import NextLink from 'next/link';
@@ -334,19 +333,6 @@ const ServicesGrid = styled(motion.div)`
   padding: 0.75rem;
 `;
 
-const ServiceCard = styled(Link)`
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  cursor: pointer;
-  
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-`;
-
 const ServiceIcon = styled.div`
   width: 30px;
   height: 30px;
@@ -560,6 +546,12 @@ const Navbar = ({ scrolled }) => {
           </NavItem>
 
           <NavItem>
+            <NextLink href="/work">
+              <NavLink $scrolled={scrolled}>Our Work</NavLink>
+            </NextLink>
+          </NavItem>
+
+          <NavItem>
             <NextLink href="/#vision">
               <NavLink 
                 $scrolled={scrolled}
@@ -646,6 +638,14 @@ const Navbar = ({ scrolled }) => {
                   )}
                 </AnimatePresence>
               </ExpandableNavItem>
+
+              <MobileNavItem>
+                <NextLink href="/work">
+                  <MobileNavLink onClick={() => setMobileMenuOpen(false)}>
+                    Our Work
+                  </MobileNavLink>
+                </NextLink>
+              </MobileNavItem>
               
               <MobileNavItem>
                 <NextLink href="/#vision">

@@ -5,8 +5,9 @@ import Image from 'next/image';
 
 const HeroSection = styled.section`
   position: relative;
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding-top: 6.75rem;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -34,10 +35,9 @@ const Container = styled.div`
 const Content = styled.div`
   max-width: 650px;
   color: white;
-  padding-top: 6rem;
-
+  padding-top: 0;
   @media (max-width: 1024px) {
-    padding-top: 10rem;
+    padding-top: 1.5rem;
   }
 `;
 

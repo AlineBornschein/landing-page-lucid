@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link as ScrollLink } from 'react-scroll';
 import NextLink from 'next/link';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 const FooterSection = styled.footer`
   background-color: var(--dark);
@@ -140,18 +138,13 @@ const BottomLinks = styled.div`
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const router = useRouter();
-  const isHomePage = router.pathname === '/';
-  
-  // Use this function to conditionally render links
-  const renderLink = (to, label) => {
-    if (isHomePage) {
-      return <ScrollLink to={to} smooth={true} duration={500}>{label}</ScrollLink>;
-    } else {
-      return <NextLink href={`/#${to}`}>{label}</NextLink>;
-    }
-  };
-  
+
+  /* Always NextLink: router pathname can differ on first client paint vs SSR and
+     broke hydration when mixing react-scroll Link vs NextLink. */
+  const renderLink = (to, label) => (
+    <NextLink href={`/#${to}`}>{label}</NextLink>
+  );
+
   return (
     <FooterSection>
       <Container>

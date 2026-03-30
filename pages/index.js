@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-// Import components
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
@@ -13,7 +12,6 @@ import Journey from '../components/Journey';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
-// Add global styles
 const GlobalStyle = styled.div`
   --primary: #3b82f6;
   --primary-light: #93c5fd;
@@ -35,13 +33,9 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
-
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -50,13 +44,16 @@ export default function Home() {
     <GlobalStyle>
       <Head>
         <title>Lucid Code Labs Software - Software Development Company</title>
-        <meta name="description" content="Professional software development services including AI solutions, web development, mobile apps, and more." />
-        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content="Professional software development services including AI solutions, web development, mobile apps, and more."
+        />
+        <link rel="icon" href="/images/logo1.png" type="image/png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <Navbar scrolled={scrolled} />
-      
+
       <MainContent>
         <Hero />
         <Services />
@@ -69,4 +66,4 @@ export default function Home() {
       </MainContent>
     </GlobalStyle>
   );
-} 
+}
